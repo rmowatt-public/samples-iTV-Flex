@@ -1,0 +1,29 @@
+<!-- saved from url=(0014)about:internet -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>Color.as</title>
+<link rel="stylesheet" type="text/css" href="../../../../../SourceStyles.css"/>
+</head>
+
+<body><pre><span class="asPackage">package</span> com.rbm.valueObjects.Color
+<span class="asBracket">{</span>
+    <span class="asReserved">public</span> <span class="asClass">class</span> Color
+    <span class="asBracket">{</span>
+        <span class="asReserved">public</span> <span class="asVar">var</span> red<span class="asOperator">:</span>String;
+        <span class="asReserved">public</span> <span class="asVar">var</span> green<span class="asOperator">:</span>String;
+        <span class="asReserved">public</span> <span class="asVar">var</span> blue<span class="asOperator">:</span>String;
+        
+        <span class="asReserved">public</span> <span class="asFunction">function</span> Color<span class="asBracket">(</span>r<span class="asOperator">:</span>String,g<span class="asOperator">:</span>String,b<span class="asOperator">:</span>String<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+            <span class="asReserved">this</span>.red <span class="asOperator">=</span> r;
+            <span class="asReserved">this</span>.green <span class="asOperator">=</span> g;
+            <span class="asReserved">this</span>.blue <span class="asOperator">=</span> b;
+        <span class="asBracket">}</span>
+        
+        <span class="asReserved">public</span> <span class="asFunction">function</span> toString<span class="asBracket">()</span><span class="asOperator">:</span>String<span class="asBracket">{</span>
+            <span class="asReserved">return</span> <span class="asString">&apos;[red]=&apos;</span><span class="asOperator">+</span><span class="asReserved">this</span>.red<span class="asOperator">+</span><span class="asString">&apos; [green]=&apos;</span><span class="asOperator">+</span><span class="asReserved">this</span>.green<span class="asOperator">+</span><span class="asString">&apos; [blue]=&apos;</span><span class="asOperator">+</span><span class="asReserved">this</span>.blue;
+        <span class="asBracket">}</span>
+    <span class="asBracket">}</span>
+<span class="asBracket">}</span></pre></body>
+</html>

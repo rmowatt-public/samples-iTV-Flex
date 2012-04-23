@@ -1,0 +1,93 @@
+/* CSS file */
+		Application{
+			color:blue;
+			backgroundColor:#7191C4;
+			fontFamily:Arial;
+		}
+		
+		Panel{
+			backgroundColor:#ABD4CA;
+		}
+		
+		title.Panel{
+				fontSize:14;
+		}
+		
+		.catDescription{
+			paddingLeft:5;
+			color:#A2CEC3;
+			fontSize:12;
+			/*fontWeight:bold;*/
+			backgroundColor:#1C4D3F;
+			textAlign:center;
+		}
+		
+		.movieTitle{
+			color:blue;
+			fontWeight:bold;
+			fontSize:13;
+			textDecoration:underline;
+		}
+		
+		.movieDescription{
+			color:black;
+			fontSize:12;
+		}
+		
+		.movieTotalPlays{
+			color:#1C4D3F;
+			fontSize:11
+		}
+		
+		Image{
+			border:5 solid green;
+			padding:10;
+		}
+		
+		Button{
+			color:#1C4D3F;
+			fontSize:11;
+		}
+		
+		MovieItemObject{
+			border:5px solid black;
+		}
+		
+		.commentsDate{
+			color:black;
+			fontSize:10;
+			paddinfLeft:5;
+		}
+		
+		
+		.sliderLabel{
+			color:black;
+			fontSize:9
+		}
+		
+		.ColorController , .addAQuote{
+			fontSize:9;
+			headerHeight:14;
+			borderThicknessRight:4;
+			borderThicknessLeft:4;
+			borderThicknessTop:1;
+			headerColors:yellow,black;
+			cornerRadius:0;
+			borderColor:black;
+			color:white;
+		}
+		
+		.addAQuote{
+			backgroundColor:white;
+
+		}
+		
+		.colorReset{
+			fontSize:9;
+		}
+		
+		
+		.VideoPlayer , .PickAVideo{
+			headerHeight:20;
+			fontSize:10;
+		}

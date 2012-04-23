@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" creationComplete="movieCaption.send()">
+	<mx:Metadata>
+		[Event(name="captionsLoaded", type="events.CaptionEvent")]
+	</mx:Metadata>
+	<mx:Script>
+		<![CDATA[
+			import mx.rpc.events.ResultEvent;
+			import events.CaptionEvent;
+			
+			[Bindable]
+			public var captionSource:String;
+			
+			public function update():void{
+				movieCaption.send();
+			}
+			
+			public function makeCaption(event:ResultEvent):void{
+				var captionArray:Array = new Array();
+				for each(var m:XML in event.result..Caption){
+					var o:Object = new Object();
+					o.name = m.PlainTextCaption;
+					o.time = makeTime(m.@startTime);
+					captionArray.push(o);
+					trace(o.time);
+				}
+				var e:CaptionEvent = new CaptionEvent(captionArray,"captionsLoaded");
+				this.dispatchEvent(e);
+			}
+			
+			private function makeTime(time:String):Number{
+				var myTime:String = time.substr(3,5);
+				var myTimeArray:Array = myTime.split(':');
+				if(myTimeArray[0] > 0){
+					myTimeArray[1] = Number(myTimeArray[1]) + (Number(myTimeArray[0])*60);
+				}
+				myTime = String(myTimeArray[1]);
+				return Number(myTime);
+			}
+		]]>
+	</mx:Script>
+	<mx:HTTPService id="movieCaption" url="{captionSource}" result="makeCaption(event)" resultFormat="e4x"/>
+</mx:Canvas>

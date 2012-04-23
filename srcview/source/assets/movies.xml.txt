@@ -1,0 +1,37 @@
+		<movies>
+		<movie>
+			<movieName>Declaration of Independence</movieName>
+			<moviePath>rtmp://vcv52e58gh.rtmphost.com/testme/declaration.flv</moviePath>
+			<movieDescription>That would be the day</movieDescription>
+			<totalPlays>10</totalPlays>
+			<teaserImage>/images/coolio.jpg</teaserImage>
+		</movie>
+		<movie>
+			<movieName>British Troops Take LSD</movieName>
+			<moviePath>rtmp://vcv52e58gh.rtmphost.com/testme/lsd.flv</moviePath>
+			<movieDescription>Who said acid was only for Americans?</movieDescription>
+			<totalPlays>10</totalPlays>
+			<teaserImage>/images/coolio.jpg</teaserImage>
+		</movie>
+		<movie>
+			<movieName>Crazy Agro-dog</movieName>
+			<moviePath>rtmp://vcv52e58gh.rtmphost.com/testme/dog.flv</moviePath>
+			<movieDescription>Do fights with own tail</movieDescription>
+			<totalPlays>10</totalPlays>
+			<teaserImage>/images/coolio.jpg</teaserImage>
+		</movie>
+		<movie>
+			<movieName>Old Men Fight</movieName>
+			<moviePath>rtmp://vcv52e58gh.rtmphost.com/testme/fight.flv</moviePath>
+			<movieDescription>Watch as 70 year old testosterone flows</movieDescription>
+			<totalPlays>10</totalPlays>
+			<teaserImage>/images/coolio.jpg</teaserImage>
+		</movie>
+		<movie>
+			<movieName>Hold me closer Tubby Dancer</movieName>
+			<moviePath>rtmp://vcv52e58gh.rtmphost.com/testme/fall.flv</moviePath>
+			<movieDescription>This kid kicks ass and has his kicked in return</movieDescription>
+			<totalPlays>10</totalPlays>
+			<teaserImage>/images/coolio.jpg</teaserImage>
+		</movie>
+		</movies>

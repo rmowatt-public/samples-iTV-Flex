@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%"   verticalAlign="middle" paddingLeft="5" borderStyle="solid" borderColor="#0000a0" cornerRadius="4" themeColor="#0000ff" borderThickness="1">
+<mx:Script>
+	<![CDATA[
+		import mx.controls.Image;
+		import com.rbm.valueObjects.MovieItem;
+		import mx.core.DragSource;
+		import mx.managers.DragManager;
+		import mx.events.DragEvent;
+		import mx.core.IUIComponent;
+		
+		[Bindable]
+		public var myItem:MovieItem = null;
+		
+		private function dragMe(initiator:Image, dsData:MovieItem , event:MouseEvent, format:String):void{
+			var ds:DragSource = new DragSource();
+			ds.addData(dsData,format);
+			DragManager.doDrag(initiator,ds,event);
+		}
+	]]>
+</mx:Script>
+	<mx:Image id="movieTeaserImage" styleName="movieTeaserImage" source="{'assets/images/'+myItem.teaserImage}"  height="64" width="50" mouseDown="dragMe(movieTeaserImage, myItem ,event,'movieItemFormat')"  themeColor="#00ff00"/>
+	<mx:VBox width="100%" verticalGap="0">
+		<mx:Label id="movieName" text="{myItem.movieName}" styleName="movieTitle"/>
+		<mx:Label id="totalPlays" text="Total Plays: {myItem.totalPlays}" styleName = "movieTotalPlays" />
+		<mx:TextArea id="movieDescription" text="{myItem.movieDescription}" styleName="movieDescription"  backgroundAlpha="0.0" borderStyle="none" wordWrap="true"  editable="false"  width="100%"  />
+		
+	</mx:VBox>
+</mx:HBox>

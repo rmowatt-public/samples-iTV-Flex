@@ -1,0 +1,204 @@
+<!-- saved from url=(0014)about:internet -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>VideoPlayer.mxml</title>
+<link rel="stylesheet" type="text/css" href="../../../../../SourceStyles.css"/>
+</head>
+
+<body><pre><span class="mxmlCdata">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="mxmlComponent">&lt;mx:Panel</span> styleName=&quot;<span class="mxmlString">VideoPlayer</span>&quot; xmlns:mx=&quot;<span class="mxmlString">http://www.adobe.com/2006/mxml</span>&quot; xmlns:tv=&quot;<span class="mxmlString">com.rbm.displayObjects.Television.*</span>&quot; layout=&quot;<span class="mxmlString">absolute</span>&quot; title=&quot;<span class="mxmlString">HAZE.tv</span>&quot; width=&quot;<span class="mxmlString">{</span>myVid.width <span class="asOperator">+</span> 22<span class="mxmlString">}</span>&quot; icon=&quot;<span class="mxmlString">{</span>image_ico<span class="mxmlString">}</span>&quot;  creationComplete=&quot;init<span class="asBracket">()</span>&quot;<span class="mxmlComponent">&gt;</span>
+    <span class="mxmlComponent">&lt;mx:states&gt;</span>
+        <span class="mxmlComponent">&lt;mx:State</span> name=&quot;<span class="mxmlString">captionClosed</span>&quot;<span class="mxmlComponent">&gt;</span>
+            <span class="mxmlComponent">&lt;mx:RemoveChild</span> target=&quot;<span class="mxmlString">{</span>captionArea<span class="mxmlString">}</span>&quot;<span class="mxmlComponent">/&gt;</span>
+        <span class="mxmlComponent">&lt;/mx:State&gt;</span>
+        <span class="mxmlComponent">&lt;mx:State</span> name=&quot;<span class="mxmlString">largeScreen</span>&quot;<span class="mxmlComponent">&gt;</span>
+            <span class="mxmlComponent">&lt;mx:SetProperty</span> target=&quot;<span class="mxmlString">{</span>myVid<span class="mxmlString">}</span>&quot; name=&quot;<span class="mxmlString">width</span>&quot; value=&quot;<span class="mxmlString">720</span>&quot;<span class="mxmlComponent">/&gt;</span>
+            <span class="mxmlComponent">&lt;mx:SetProperty</span> target=&quot;<span class="mxmlString">{</span>myVid<span class="mxmlString">}</span>&quot; name=&quot;<span class="mxmlString">height</span>&quot; value=&quot;<span class="mxmlString">540</span>&quot;<span class="mxmlComponent">/&gt;</span>
+            <span class="mxmlComponent">&lt;mx:SetProperty</span> target=&quot;<span class="mxmlString">{</span>captionArea<span class="mxmlString">}</span>&quot; name=&quot;<span class="mxmlString">y</span>&quot; value=&quot;<span class="mxmlString">494</span>&quot;<span class="mxmlComponent">/&gt;</span>
+            <span class="mxmlComponent">&lt;mx:SetProperty</span> target=&quot;<span class="mxmlString">{</span>captionArea<span class="mxmlString">}</span>&quot; name=&quot;<span class="mxmlString">width</span>&quot; value=&quot;<span class="mxmlString">{</span>myVid.width<span class="mxmlString">}</span>&quot;<span class="mxmlComponent">/&gt;</span>
+            <span class="mxmlComponent">&lt;mx:SetStyle</span> target=&quot;<span class="mxmlString">{</span>captionArea<span class="mxmlString">}</span>&quot; name=&quot;<span class="mxmlString">fontSize</span>&quot; value=&quot;<span class="mxmlString">14</span>&quot;<span class="mxmlComponent">/&gt;</span>
+        <span class="mxmlComponent">&lt;/mx:State&gt;</span>
+    <span class="mxmlComponent">&lt;/mx:states&gt;</span>
+<span class="mxmlTag">&lt;mx:Metadata&gt;</span>
+    <span class="mxmlCdata">[Event(name=&quot;play&quot;,type=&quot;events.VideoPlayerEvent&quot;)]
+    [Event(name=&quot;stop&quot;,type=&quot;events.VideoPlayerEvent&quot;)]
+    [Event(name=&quot;pause&quot;,type=&quot;events.VideoPlayerEvent&quot;)]
+    [Event(name=&quot;movieSelected&quot;, type=&quot;events.MovieSelectedEvent&quot;)]
+    [Event(name=&quot;addCue&quot;, type=&quot;events.VideoPlayerEvent&quot;)]
+</span><span class="mxmlTag">&lt;/mx:Metadata&gt;</span>
+<span class="mxmlTag">&lt;mx:Script&gt;</span>
+    <span class="asOperator">&lt;!</span><span class="asBracket">[</span>CDATA<span class="asBracket">[</span>
+        <span class="asReserved">import</span> mx.managers.DragManager;
+        <span class="asReserved">import</span> mx.events.DragEvent;
+        <span class="asReserved">import</span> mx.core.IUIComponent;
+        <span class="asReserved">import</span> com.rbm.valueObjects.MovieItem;
+        <span class="asReserved">import</span> events.MovieSelectedEvent;
+        <span class="asReserved">import</span> mx.events.CuePointEvent;
+        <span class="asReserved">import</span> events.VideoPlayerEvent;
+        
+        <span class="asBracket">[</span>Embed <span class="asBracket">(</span>source <span class="asOperator">=</span> <span class="asString">&apos;/assets/images/stars/1star.gif&apos;</span><span class="asBracket">)]</span>
+         <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+         <span class="asReserved">public</span> <span class="asVar">var</span> image_ico <span class="asOperator">:</span> Class;
+         
+        <span class="asReserved">public</span> <span class="asReserved">static</span>  <span class="asVar">var</span> DEFAULT_WIDTH<span class="asOperator">:</span>Number <span class="asOperator">=</span> 320;
+         
+        <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+        <span class="asReserved">public</span> <span class="asVar">var</span> loaderMovie<span class="asOperator">:</span>String;<span class="asComment">//default movie to play when no movie is selected
+</span>        
+        <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+        <span class="asReserved">public</span> <span class="asVar">var</span> movieSource<span class="asOperator">:</span>String;<span class="asComment">//source of current movie to load
+</span>        
+        <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+        <span class="asReserved">public</span> <span class="asVar">var</span> myCuePoints<span class="asOperator">:</span>Array;<span class="asComment">//array of cue points to be synched with movie  
+</span>        
+        <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+        <span class="asReserved">private</span> <span class="asVar">var</span> captionText<span class="asOperator">:</span>String;<span class="asComment">//currently displaying text    
+</span>        
+        <span class="asBracket">[</span>Bibdable<span class="asBracket">]</span>
+        <span class="asReserved">public</span> <span class="asVar">var</span> captionAutoOn<span class="asOperator">:</span>Boolean <span class="asOperator">=</span> <span class="asReserved">false</span>;<span class="asComment">//forced captions to always begin in a visible state   
+</span>        
+        
+        <span class="asReserved">private</span> <span class="asFunction">function</span> init<span class="asBracket">()</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+            switchSource<span class="asBracket">(</span>loaderMovie<span class="asBracket">)</span>;
+            <span class="asComment">//DEFAULT_WIDTH = myVid.width;
+</span>        
+        <span class="asBracket">}</span>  
+        
+        <span class="asReserved">private</span> <span class="asFunction">function</span> setDefaultWidth<span class="asBracket">(</span>w<span class="asOperator">:</span>Number<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+            DEFAULT_WIDTH <span class="asOperator">=</span> w;
+        <span class="asBracket">}</span>
+            <span class="asComment">// Set cue points using methods of the CuePointManager class.
+</span>        <span class="asReserved">private</span> <span class="asFunction">function</span> initCP<span class="asBracket">()</span><span class="asOperator">:</span><span class="asReserved">void</span> <span class="asBracket">{</span><span class="asComment">//initialize or reset caption values
+</span>                myVid.cuePointManager.removeAllCuePoints<span class="asBracket">()</span>;
+                myVid.cuePointManager.setCuePoints<span class="asBracket">(</span>myCuePoints<span class="asBracket">)</span>;
+            <span class="asBracket">}</span>
+
+        
+        <span class="asReserved">private</span> <span class="asFunction">function</span> playMe<span class="asBracket">()</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span><span class="asComment">//play movie and send event
+</span>            <span class="asReserved">this</span>.myVid.play<span class="asBracket">()</span>;
+            <span class="asVar">var</span> o<span class="asOperator">:</span>VideoPlayerEvent <span class="asOperator">=</span> <span class="asReserved">new</span> VideoPlayerEvent<span class="asBracket">(</span>myVid ,<span class="asString">&apos;play&apos;</span><span class="asBracket">)</span>;
+            <span class="asReserved">this</span>.dispatchEvent<span class="asBracket">(</span>o<span class="asBracket">)</span>;
+            
+        <span class="asBracket">}</span>
+        <span class="asReserved">private</span> <span class="asFunction">function</span> stopMe<span class="asBracket">()</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span><span class="asComment">//stop movie, send event and close caption box
+</span>            <span class="asReserved">this</span>.captionArea.visible <span class="asOperator">=</span> <span class="asReserved">false</span>;
+            <span class="asReserved">this</span>.myVid.stop<span class="asBracket">()</span>;
+            <span class="asVar">var</span> o<span class="asOperator">:</span>VideoPlayerEvent <span class="asOperator">=</span> <span class="asReserved">new</span> VideoPlayerEvent<span class="asBracket">(</span>myVid ,<span class="asString">&apos;stop&apos;</span><span class="asBracket">)</span>;
+            <span class="asReserved">this</span>.dispatchEvent<span class="asBracket">(</span>o<span class="asBracket">)</span>;
+        <span class="asBracket">}</span>
+        <span class="asReserved">public</span> <span class="asFunction">function</span> pauseMe<span class="asBracket">()</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span><span class="asComment">//pause movie and send event
+</span>            <span class="asReserved">this</span>.myVid.pause<span class="asBracket">()</span>;
+            <span class="asVar">var</span> o<span class="asOperator">:</span>VideoPlayerEvent <span class="asOperator">=</span> <span class="asReserved">new</span> VideoPlayerEvent<span class="asBracket">(</span>myVid ,<span class="asString">&apos;pause&apos;</span><span class="asBracket">)</span>;
+            <span class="asReserved">this</span>.dispatchEvent<span class="asBracket">(</span>o<span class="asBracket">)</span>;
+        <span class="asBracket">}</span>
+        
+        <span class="asReserved">private</span> <span class="asFunction">function</span> muteMe<span class="asBracket">()</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span><span class="asComment">//should be obvious enuff =)
+</span>            <span class="asReserved">if</span><span class="asBracket">(</span><span class="asReserved">this</span>.myVid.volume <span class="asOperator">&gt;</span> 0.0<span class="asBracket">){</span>
+                <span class="asReserved">this</span>.myVid.volume <span class="asOperator">=</span> 0.0;
+            <span class="asBracket">}</span>
+            <span class="asReserved">else</span><span class="asBracket">{</span>
+                <span class="asReserved">this</span>.myVid.volume <span class="asOperator">=</span> 1.0
+            <span class="asBracket">}</span>
+        <span class="asBracket">}</span>
+        
+        <span class="asReserved">private</span> <span class="asFunction">function</span> completeMe<span class="asBracket">()</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span><span class="asComment">//movies complete handler
+</span>            
+        <span class="asBracket">}</span>
+        
+        <span class="asReserved">private</span> <span class="asFunction">function</span> doDragEnter<span class="asBracket">(</span>event<span class="asOperator">:</span>DragEvent , format<span class="asOperator">:</span>String<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+            <span class="asReserved">if</span><span class="asBracket">(</span>event.dragSource.hasFormat<span class="asBracket">(</span>format<span class="asBracket">)){</span><span class="asComment">//only allow object to drop if we can process it
+</span>                DragManager.acceptDragDrop<span class="asBracket">(</span>IUIComponent<span class="asBracket">(</span>event.target<span class="asBracket">))</span>;
+            <span class="asBracket">}</span>
+        <span class="asBracket">}</span>
+        
+        <span class="asReserved">private</span> <span class="asFunction">function</span> doDragDrop<span class="asBracket">(</span>event<span class="asOperator">:</span>DragEvent, format<span class="asOperator">:</span>String<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span><span class="asComment">//set up all the info and tell listener to get the captions
+</span>            <span class="asVar">var</span> myMovieData<span class="asOperator">:</span>MovieItem <span class="asOperator">=</span> MovieItem<span class="asBracket">(</span>event.dragSource.dataForFormat<span class="asBracket">(</span>format<span class="asBracket">))</span>;<span class="asComment">//make sure its a movie object
+</span>            startVid<span class="asBracket">(</span>myMovieData<span class="asBracket">)</span>;
+            <span class="asVar">var</span> o<span class="asOperator">:</span>MovieSelectedEvent <span class="asOperator">=</span> <span class="asReserved">new</span> MovieSelectedEvent<span class="asBracket">(</span>myMovieData,<span class="asString">&apos;movieSelected&apos;</span><span class="asBracket">)</span>;<span class="asComment">//send an event letting others know theres a new video
+</span>            <span class="asReserved">this</span>.dispatchEvent<span class="asBracket">(</span>o<span class="asBracket">)</span>;
+            
+        <span class="asBracket">}</span>
+        
+        <span class="asReserved">public</span> <span class="asFunction">function</span> startVid<span class="asBracket">(</span>myMovieData<span class="asOperator">:</span>MovieItem<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+            setDisplayWidth<span class="asBracket">(</span>VideoPlayer.DEFAULT_WIDTH<span class="asBracket">)</span>;
+            <span class="asVar">var</span> myData<span class="asOperator">:</span>MovieItem <span class="asOperator">=</span> myMovieData <span class="asReserved">as</span> MovieItem;
+            movieSource <span class="asOperator">=</span> myMovieData.moviePath;<span class="asComment">//change player source
+</span>            captionArea.visible <span class="asOperator">=</span> captionAutoOn;<span class="asComment">//if AutoOn == true we show the captions right away
+</span>        
+        <span class="asBracket">}</span>
+        
+        <span class="asReserved">public</span> <span class="asFunction">function</span> load<span class="asBracket">()</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span><span class="asComment">//clistener tells us captions are all loded we can continue loading movie
+</span>            setCaptionText<span class="asBracket">(</span><span class="asString">&apos;&apos;</span><span class="asBracket">)</span>;
+            initCP<span class="asBracket">()</span>;<span class="asComment">// create our cue points
+</span>            myVid.load<span class="asBracket">()</span>;<span class="asComment">//load the new video
+</span>            DEFAULT_WIDTH <span class="asOperator">=</span> myVid.width;
+        
+        <span class="asBracket">}</span>
+        
+        <span class="asReserved">private</span> <span class="asFunction">function</span> switchSource<span class="asBracket">(</span>_source<span class="asOperator">:</span>String<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span><span class="asComment">//initializes default video on load
+</span>            captionArea.visible <span class="asOperator">=</span> captionAutoOn;
+            movieSource <span class="asOperator">=</span> _source;
+            myVid.load<span class="asBracket">()</span>;
+        <span class="asBracket">}</span>
+        
+        <span class="asReserved">private</span> <span class="asFunction">function</span> setCaptionText<span class="asBracket">(</span>_caption<span class="asOperator">:</span>String<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span><span class="asComment">//catches the cue point event and updates text in captionArea
+</span>            <span class="asReserved">this</span>.captionText <span class="asOperator">=</span> _caption;
+        <span class="asBracket">}</span>
+        
+        <span class="asReserved">private</span> <span class="asFunction">function</span> addACue<span class="asBracket">()</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+            <span class="asVar">var</span> o<span class="asOperator">:</span>VideoPlayerEvent <span class="asOperator">=</span> <span class="asReserved">new</span> VideoPlayerEvent<span class="asBracket">(</span>myVid ,<span class="asString">&apos;addCue&apos;</span><span class="asBracket">)</span>;<span class="asComment">//send an event letting others know theres a new video
+</span>            <span class="asReserved">this</span>.dispatchEvent<span class="asBracket">(</span>o<span class="asBracket">)</span>;
+        <span class="asBracket">}</span>
+        
+        
+        <span class="asReserved">private</span> <span class="asFunction">function</span> showCaptions<span class="asBracket">()</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span><span class="asComment">//toggles caption view
+</span>            <span class="asReserved">if</span><span class="asBracket">(</span><span class="asReserved">this</span>.captionArea.visible<span class="asBracket">){</span>
+                <span class="asReserved">this</span>.captionArea.visible <span class="asOperator">=</span> <span class="asReserved">false</span>;
+            <span class="asBracket">}</span>
+            <span class="asReserved">else</span><span class="asBracket">{</span>
+                <span class="asReserved">this</span>.captionArea.visible <span class="asOperator">=</span> <span class="asReserved">true</span>;
+            <span class="asBracket">}</span>
+        <span class="asBracket">}</span>
+        
+        <span class="asReserved">public</span> <span class="asFunction">function</span> setDisplayWidth<span class="asBracket">(</span>w<span class="asOperator">:</span>Number<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+            <span class="asReserved">this</span>.myVid.width<span class="asOperator">=</span> w;
+        <span class="asBracket">}</span>
+    <span class="asBracket">]]</span><span class="asOperator">&gt;</span>
+<span class="mxmlTag">&lt;/mx:Script&gt;</span>
+
+    <span class="mxmlComment">&lt;!--</span><span class="mxmlComment"> The actual video display component as shipped with FLEX </span><span class="mxmlComment">--&gt;</span>
+    
+    <span class="mxmlComponent">&lt;mx:VideoDisplay</span>
+        id=&quot;<span class="mxmlString">myVid</span>&quot;
+        autoRewind=&quot;<span class="mxmlString">true</span>&quot;
+        dragEnter=&quot;doDragEnter<span class="asBracket">(</span>event , <span class="asString">&apos;movieItemFormat&apos;</span><span class="asBracket">)</span>&quot; 
+        dragDrop=&quot;doDragDrop<span class="asBracket">(</span>event,<span class="asString">&apos;movieItemFormat&apos;</span><span class="asBracket">)</span>&quot; 
+        source=&quot;<span class="mxmlString">{</span>movieSource<span class="mxmlString">}</span>&quot; 
+        complete=&quot;completeMe<span class="asBracket">()</span>&quot;
+        cuePointManagerClass=&quot;<span class="mxmlString">mx.controls.videoClasses.CuePointManager</span>&quot;
+        cuePoint = &quot;setCaptionText<span class="asBracket">(</span>event.cuePointName<span class="asBracket">)</span>&quot;  x=&quot;<span class="mxmlString">0</span>&quot; y=&quot;<span class="mxmlString">0</span>&quot;
+        ready=&quot;setDefaultWidth<span class="asBracket">(</span><span class="asReserved">this</span>.myVid.width<span class="asBracket">)</span>&quot;
+     width=&quot;<span class="mxmlString">320</span>&quot; height=&quot;<span class="mxmlString">240</span>&quot;<span class="mxmlComponent">/&gt;</span>
+    
+    <span class="mxmlComment">&lt;!--</span><span class="mxmlComment"> The caption area, text is bound to the captionText variable </span><span class="mxmlComment">--&gt;</span>
+    
+    <span class="mxmlComponent">&lt;mx:TextArea</span> 
+        id=&quot;<span class="mxmlString">captionArea</span>&quot; 
+        text=&quot;<span class="mxmlString">{</span>captionText<span class="mxmlString">}</span>&quot; 
+        fontSize=&quot;<span class="mxmlString">11</span>&quot; 
+        x=&quot;<span class="mxmlString">0</span>&quot; y=&quot;<span class="mxmlString">195</span>&quot; height=&quot;<span class="mxmlString">45</span>&quot; width=&quot;<span class="mxmlString">320</span>&quot; 
+        enabled=&quot;<span class="mxmlString">true</span>&quot; 
+        color=&quot;<span class="mxmlString">#ff0000</span>&quot; wordWrap=&quot;<span class="mxmlString">true</span>&quot; editable=&quot;<span class="mxmlString">false</span>&quot; 
+        borderStyle=&quot;<span class="mxmlString">outset</span>&quot; borderColor=&quot;<span class="mxmlString">#ff0000</span>&quot; 
+        backgroundAlpha=&quot;<span class="mxmlString">0.6</span>&quot; backgroundColor=&quot;<span class="mxmlString">#000000</span>&quot; 
+        fontFamily=&quot;<span class="mxmlString">Arial</span>&quot; fontWeight=&quot;<span class="mxmlString">bold</span>&quot;
+        showEffect=&quot;<span class="mxmlString">WipeUp</span>&quot; hideEffect=&quot;<span class="mxmlString">WipeDown</span>&quot; 
+    <span class="mxmlComponent">/&gt;</span>
+    
+    <span class="mxmlComment">&lt;!--</span><span class="mxmlComment"> Video controller bar found in television package, baically just a set of buttons that throw basic events named accordingly </span><span class="mxmlComment">--&gt;</span>
+        
+    <span class="mxmlComponent">&lt;tv:VideoControllerBar</span> play=&quot;playMe<span class="asBracket">()</span>&quot; pause=&quot;pauseMe<span class="asBracket">()</span>&quot; stop=&quot;stopMe<span class="asBracket">()</span>&quot; mute=&quot;muteMe<span class="asBracket">()</span>&quot; addACue=&quot;addACue<span class="asBracket">()</span>&quot; caption=&quot;showCaptions<span class="asBracket">()</span>&quot;  x=&quot;<span class="mxmlString">2</span>&quot; y=&quot;<span class="mxmlString">{</span>myVid.height <span class="asOperator">+</span> 5<span class="mxmlString">}</span>&quot;<span class="mxmlComponent">/&gt;</span>
+<span class="mxmlComponent">&lt;/mx:Panel&gt;</span></pre></body>
+</html>

@@ -1,0 +1,38 @@
+<!-- saved from url=(0014)about:internet -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>MovieItemObject.mxml</title>
+<link rel="stylesheet" type="text/css" href="../../../../../SourceStyles.css"/>
+</head>
+
+<body><pre><span class="mxmlCdata">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="mxmlComponent">&lt;mx:HBox</span> xmlns:mx=&quot;<span class="mxmlString">http://www.adobe.com/2006/mxml</span>&quot; width=&quot;<span class="mxmlString">100%</span>&quot;  horizontalGap=&quot;<span class="mxmlString">5</span>&quot; verticalAlign=&quot;<span class="mxmlString">middle</span>&quot; paddingLeft=&quot;<span class="mxmlString">5</span>&quot; borderStyle=&quot;<span class="mxmlString">inset</span>&quot; borderColor=&quot;<span class="mxmlString">#1C4D3F</span>&quot;<span class="mxmlComponent">&gt;</span>
+<span class="mxmlTag">&lt;mx:Script&gt;</span>
+    <span class="asOperator">&lt;!</span><span class="asBracket">[</span>CDATA<span class="asBracket">[</span>
+        <span class="asReserved">import</span> mx.controls.Image;
+        <span class="asReserved">import</span> com.rbm.valueObjects.MovieItem;
+        <span class="asReserved">import</span> mx.core.DragSource;
+        <span class="asReserved">import</span> mx.managers.DragManager;
+        <span class="asReserved">import</span> mx.events.DragEvent;
+        <span class="asReserved">import</span> mx.core.IUIComponent;
+        
+        <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+        <span class="asReserved">public</span> <span class="asVar">var</span> myItem<span class="asOperator">:</span>MovieItem <span class="asOperator">=</span> <span class="asReserved">null</span>;
+        
+        <span class="asReserved">private</span> <span class="asFunction">function</span> dragMe<span class="asBracket">(</span>initiator<span class="asOperator">:</span>Image, dsData<span class="asOperator">:</span>MovieItem , event<span class="asOperator">:</span>MouseEvent, format<span class="asOperator">:</span>String<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+            <span class="asVar">var</span> ds<span class="asOperator">:</span>DragSource <span class="asOperator">=</span> <span class="asReserved">new</span> DragSource<span class="asBracket">()</span>;
+            ds.addData<span class="asBracket">(</span>dsData,format<span class="asBracket">)</span>;
+            DragManager.doDrag<span class="asBracket">(</span>initiator,ds,event<span class="asBracket">)</span>;
+        <span class="asBracket">}</span>
+    <span class="asBracket">]]</span><span class="asOperator">&gt;</span>
+<span class="mxmlTag">&lt;/mx:Script&gt;</span>
+    <span class="mxmlComponent">&lt;mx:Image</span> id=&quot;<span class="mxmlString">movieTeaserImage</span>&quot; styleName=&quot;<span class="mxmlString">movieTeaserImage</span>&quot; source=&quot;<span class="mxmlString">{</span><span class="asString">&apos;assets/images/&apos;</span><span class="asOperator">+</span>myItem.teaserImage<span class="mxmlString">}</span>&quot;  height=&quot;<span class="mxmlString">64</span>&quot; width=&quot;<span class="mxmlString">50</span>&quot; mouseDown=&quot;dragMe<span class="asBracket">(</span>movieTeaserImage, myItem ,event,<span class="asString">&apos;movieItemFormat&apos;</span><span class="asBracket">)</span>&quot;  themeColor=&quot;<span class="mxmlString">#00ff00</span>&quot;<span class="mxmlComponent">/&gt;</span>
+    <span class="mxmlComponent">&lt;mx:VBox&gt;</span>
+        <span class="mxmlComponent">&lt;mx:Label</span> id=&quot;<span class="mxmlString">movieName</span>&quot; text=&quot;<span class="mxmlString">{</span>myItem.movieName<span class="mxmlString">}</span>&quot; styleName=&quot;<span class="mxmlString">movieTitle</span>&quot;<span class="mxmlComponent">/&gt;</span>
+        <span class="mxmlComponent">&lt;mx:Label</span> id=&quot;<span class="mxmlString">movieDescription</span>&quot; text=&quot;<span class="mxmlString">{</span>myItem.movieDescription<span class="mxmlString">}</span>&quot; styleName=&quot;<span class="mxmlString">movieDescription</span>&quot; <span class="mxmlComponent">/&gt;</span>
+        <span class="mxmlComponent">&lt;mx:Label</span> id=&quot;<span class="mxmlString">totalPlays</span>&quot; text=&quot;<span class="mxmlString">{</span>myItem.totalPlays<span class="mxmlString">}</span>&quot; styleName = &quot;<span class="mxmlString">movieTotalPlays</span>&quot; <span class="mxmlComponent">/&gt;</span>
+    <span class="mxmlComponent">&lt;/mx:VBox&gt;</span>
+<span class="mxmlComponent">&lt;/mx:HBox&gt;</span></pre></body>
+</html>

@@ -1,0 +1,75 @@
+<!-- saved from url=(0014)about:internet -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>ViewComments.mxml</title>
+<link rel="stylesheet" type="text/css" href="../../../../../SourceStyles.css"/>
+</head>
+
+<body><pre><span class="mxmlCdata">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+
+<span class="mxmlComment">&lt;!--</span><span class="mxmlComment"> ViewComments Component shows user comments for a video w/in a grid </span><span class="mxmlComment">--&gt;</span>
+     
+<span class="mxmlComponent">&lt;mx:VBox</span> xmlns:mx=&quot;<span class="mxmlString">http://www.adobe.com/2006/mxml</span>&quot;   <span class="mxmlComponent">&gt;</span>
+<span class="mxmlTag">&lt;mx:Script&gt;</span>
+    <span class="asOperator">&lt;!</span><span class="asBracket">[</span>CDATA<span class="asBracket">[</span>
+        <span class="asReserved">import</span> mx.controls.Alert;
+        <span class="asReserved">import</span> mx.rpc.events.ResultEvent;
+        <span class="asReserved">import</span> mx.collections.ArrayCollection;
+        
+        <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+        <span class="asReserved">public</span> <span class="asVar">var</span> description<span class="asOperator">:</span>String;<span class="asComment">//title or identifier of target media
+</span>        
+        <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+        <span class="asReserved">public</span> <span class="asVar">var</span> userComments<span class="asOperator">:</span>Object;<span class="asComment">// an object that holds array f user comments
+</span>        
+        <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+        <span class="asReserved">public</span> <span class="asVar">var</span> videoID<span class="asOperator">:</span>Number;<span class="asComment">//what video do we want the comments for ?
+</span>        
+        <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+        <span class="asReserved">public</span> <span class="asVar">var</span> dataSource<span class="asOperator">:</span>String;
+    
+        <span class="asReserved">public</span> <span class="asFunction">function</span> getVideoComments<span class="asBracket">(</span>id<span class="asOperator">:</span>Number<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+            <span class="asTrace">trace</span><span class="asBracket">(</span><span class="asString">&apos;get vids&apos;</span><span class="asBracket">)</span>;
+            <span class="asReserved">this</span>.videoID <span class="asOperator">=</span> id;
+            <span class="asReserved">this</span>.comments.getVideoComments.send<span class="asBracket">()</span>
+        <span class="asBracket">}</span>
+        
+    
+        
+        <span class="asReserved">public</span> <span class="asFunction">function</span> getVideoCommentResults<span class="asBracket">(</span>event<span class="asOperator">:</span>ResultEvent<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+            <span class="asVar">var</span> result<span class="asOperator">:</span>ArrayCollection <span class="asOperator">=</span> <span class="asBracket">(</span>event.result <span class="asReserved">as</span> ArrayCollection<span class="asBracket">)</span>;
+            userComments <span class="asOperator">=</span> <span class="asReserved">null</span>;
+            userComments <span class="asOperator">=</span> event.result;<span class="asComment">//bind results to grid
+</span>        <span class="asBracket">}</span>
+        
+    <span class="asBracket">]]</span><span class="asOperator">&gt;</span>
+<span class="mxmlTag">&lt;/mx:Script&gt;</span>
+    <span class="mxmlComment">&lt;!--</span><span class="mxmlComment"> passes video id to web service and gets comments </span><span class="mxmlComment">--&gt;</span>
+    <span class="mxmlComponent">&lt;mx:WebService</span>
+        id=&quot;<span class="mxmlString">comments</span>&quot;
+        wsdl=&quot;<span class="mxmlString">{</span>dataSource<span class="mxmlString">}</span>&quot;
+        fault=&quot;Alert.show<span class="asBracket">(</span><span class="asString">&apos;There seems to be a problem. Please Reselect this video , or choose a new one.&apos;</span><span class="asBracket">)</span>&quot;
+        <span class="mxmlComponent">&gt;</span>
+        <span class="mxmlComponent">&lt;mx:operation</span> name=&quot;<span class="mxmlString">getVideoComments</span>&quot; result=&quot;getVideoCommentResults<span class="asBracket">(</span>event<span class="asBracket">)</span>&quot;<span class="mxmlComponent">&gt;</span>
+            <span class="mxmlComponent">&lt;mx:request</span> xmlns=&quot;&quot;<span class="mxmlComponent">&gt;</span>
+                <span class="mxmlComponent">&lt;vidID&gt;</span>
+                    {videoID}
+                <span class="mxmlComponent">&lt;/vidID&gt;</span>
+            <span class="mxmlComponent">&lt;/mx:request&gt;</span>
+        <span class="mxmlComponent">&lt;/mx:operation&gt;</span>
+    <span class="mxmlComponent">&lt;/mx:WebService&gt;</span>
+    
+    <span class="mxmlComment">&lt;!--</span><span class="mxmlComment"> Begin visual rendering </span><span class="mxmlComment">--&gt;</span>
+    <span class="mxmlComponent">&lt;mx:Label</span> text=&quot;<span class="mxmlString">{</span>description<span class="mxmlString">}</span>&quot;<span class="mxmlComponent">/&gt;</span>
+    <span class="mxmlComponent">&lt;mx:DataGrid</span> width=&quot;<span class="mxmlString">100%</span>&quot; height=&quot;<span class="mxmlString">100%</span>&quot; id=&quot;<span class="mxmlString">commentGrid</span>&quot; dataProvider=&quot;<span class="mxmlString">{</span>userComments<span class="mxmlString">}</span>&quot; <span class="mxmlComponent">&gt;</span>
+    <span class="mxmlComponent">&lt;mx:columns&gt;</span>
+        <span class="mxmlComponent">&lt;mx:DataGridColumn</span> dataField=&quot;<span class="mxmlString">DATE</span>&quot; headerText=&quot;<span class="mxmlString">date</span>&quot; itemRenderer=&quot;<span class="mxmlString">com.rbm.displayObjects.CommentPanel.DataRendering.DateRenderer</span>&quot; width=&quot;<span class="mxmlString">150</span>&quot;  <span class="mxmlComponent">/&gt;</span>
+        <span class="mxmlComponent">&lt;mx:DataGridColumn</span> dataField=&quot;<span class="mxmlString">COMMENT</span>&quot; headerText=&quot;<span class="mxmlString">comment</span>&quot; <span class="mxmlComponent">/&gt;</span>
+        <span class="mxmlComponent">&lt;mx:DataGridColumn</span> dataField=&quot;<span class="mxmlString">RATING</span>&quot; headerText=&quot;<span class="mxmlString">rating</span>&quot; sortable=&quot;<span class="mxmlString">false</span>&quot; itemRenderer=&quot;<span class="mxmlString">com.rbm.displayObjects.CommentPanel.DataRendering.StarRenderer</span>&quot; width=&quot;<span class="mxmlString">90</span>&quot;<span class="mxmlComponent">/&gt;</span>
+    <span class="mxmlComponent">&lt;/mx:columns&gt;</span>
+    <span class="mxmlComponent">&lt;/mx:DataGrid&gt;</span>
+    <span class="mxmlComponent">&lt;mx:Button</span> click=&quot;comments.getVideoComments.send<span class="asBracket">()</span>&quot; label=&apos;<span class="mxmlString">click</span>&apos; <span class="mxmlComponent">/&gt;</span>
+<span class="mxmlComponent">&lt;/mx:VBox&gt;</span></pre></body>
+</html>

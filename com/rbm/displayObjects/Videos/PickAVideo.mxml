@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="horizontal" xmlns:c="com.rbm.displayObjects.CommentPanel.*" 
+			xmlns:vs="com.rbm.displayObjects.VideoSelection.*" xmlns:v="com.rbm.displayObjects.Videos.*" 
+			xmlns:manager="com.rbm.magers.*" title="Other Videos"  xmlns:managers="com.rbm.managers.*"
+			>
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.Text;
+			import mx.containers.Canvas;
+			import mx.containers.VBox;
+			import mx.controls.Alert;
+			import mx.controls.Button;
+			import com.rbm.displayObjects.VideoSelection.*;
+			import com.rbm.valueObjects.*;
+			import mx.collections.ArrayCollection;
+			import mx.rpc.events.ResultEvent;
+			import com.rbm.displayObjects.Videos.MinMaxBar;
+			import com.rbm.valueObjects.Category;
+			import events.MovieManagerEvent;
+			
+			
+			[Bindable]
+			public var requestURL:String;
+			
+			
+			// vars and functions to control panel size //
+			[Bindable]
+			public var but:MinMaxBar = new MinMaxBar();
+			
+			protected override function createChildren():void{
+				but.width=100;
+				but.height = 25;
+				but.id = "but";
+				but.addEventListener("itemClick" , minimizePanel);
+				but.addEventListener("maximize" , maximizePanel);
+				this.rawChildren.addChild(but);
+				rawChildren.setChildIndex(but,1);
+				super.createChildren();
+			}
+			
+			public function minimizePanel():void{
+				mx.controls.Alert.show('minimize');
+			}
+			public function maximizePanel():void{
+				mx.controls.Alert.show('maximize');
+				
+			}
+
+			protected override function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void{
+				super.updateDisplayList(unscaledWidth,unscaledHeight);
+				var t:Number = 5;
+				var r:Number = 10;
+				var x:Number = unscaledWidth - this.but.width - r ;
+				but.move(x,t);
+				but.addEventListener("itemClick" , minimizePanel);
+			}
+			// vars and functions to control panel size //
+			
+			private function buildSelection(event:MovieManagerEvent):void{
+				var categoryArray:Array = event.manager.categorizedMovieData;
+				for each(var c:Category in categoryArray){
+					if(c.subCatArray.length >0){
+						var container:VBox = new VBox();
+							container.width = mAccordion.width;
+							container.height = mAccordion.height;
+						var can:CategoryDisplayContainer = new CategoryDisplayContainer();
+							can.styleName = "catDescription";
+							can.category = c;
+							container.addChild(can);
+						for each(var m:MovieDisplayContainer in c.subCatArray){
+							container.addChild(m);
+						}
+						container.label = c.catName;
+						mAccordion.addChild(container);
+					}
+				}
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Accordion selectedIndex="3" id="mAccordion" height="100%" width="100%" />
+	<managers:CategorizedMovieManager id="manager" targetURL="http://localhost/movies.xml" dataReady="buildSelection(event)" dataUpdated="buildSelection(event)" />
+</mx:Panel>

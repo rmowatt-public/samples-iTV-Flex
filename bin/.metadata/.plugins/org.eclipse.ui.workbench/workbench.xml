@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbench version="2.0">
+<workbenchAdvisor/>
+<window maximized="true" x="216" y="216" width="1024" height="768">
+<fastViewData fastViewLocation="1024"/>
+<perspectiveBar>
+<itemSize x="160"/>
+</perspectiveBar>
+<coolbarLayout locked="0">
+<coolItem id="group.file" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.workbench.file" itemType="typeToolBarContribution" x="95" y="22"/>
+<coolItem id="additions" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="152" y="22"/>
+<coolItem id="group.nav" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="108" y="22"/>
+<coolItem id="group.editor" itemType="typeGroupMarker"/>
+<coolItem id="group.help" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
+</coolbarLayout>
+<page label="Workspace - Flex Development" focus="true">
+<editors>
+<editorArea activeWorkbook="DefaultEditorWorkbook">
+<info part="DefaultEditorWorkbook">
+<folder expanded="2" appearance="1">
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+</editorArea>
+<editor title="Flex Start Page" name="Web Browser" id="com.adobe.flexbuilder.ui.StartPage" tooltip="file:/c:/Program Files/Adobe/Flex Builder 2/plugins/com.adobe.flexbuilder.ui_2.0.155577/welcome/welcome.htm" partName="Flex Start Page" workbook="DefaultEditorWorkbook" activePart="true" focus="true">
+<input factoryID="com.adobe.flexbuilder.editors.derived.ui.startpage.StartPageEditorInput" url="file:/c:/Program Files/Adobe/Flex Builder 2/plugins/com.adobe.flexbuilder.ui_2.0.155577/welcome/welcome.htm" style="20" iconpath="bundleentry://89/icons/flexbuilder16.gif"/>
+</editor>
+</editors>
+<views>
+<view id="org.eclipse.ui.views.ContentOutline" partName="Outline">
+<viewState/>
+</view>
+<view id="org.eclipse.ui.views.ProblemView" partName="Problems">
+<viewState columnWidth0="19" columnWidth1="200" columnWidth2="75" columnWidth3="150" columnWidth4="60" verticalPosition="0" horizontalPosition="0">
+<selection/>
+</viewState>
+</view>
+<view id="org.eclipse.ui.views.ResourceNavigator" partName="Navigator">
+<viewState sorter="1" LINK_NAVIGATOR_TO_EDITOR="0">
+<filters>
+<filter element=".*" isEnabled="false"/>
+<filter element=".flexProperties" isEnabled="true"/>
+<filter element=".actionScriptProperties" isEnabled="true"/>
+<filter element=".project" isEnabled="true"/>
+<filter element=".settings" isEnabled="true"/>
+<filter element=".flexLibProperties" isEnabled="true"/>
+<filter element=".DS_Store" isEnabled="true"/>
+<filter element="*.bak" isEnabled="false"/>
+<filter element="*.cfc" isEnabled="false"/>
+<filter element="*.cfm" isEnabled="false"/>
+<filter element="*.cfml" isEnabled="false"/>
+<filter element="*.css" isEnabled="false"/>
+<filter element="*.gif" isEnabled="false"/>
+<filter element="*.htm" isEnabled="false"/>
+<filter element="*.html" isEnabled="false"/>
+<filter element="*.js" isEnabled="false"/>
+<filter element="*.lck" isEnabled="false"/>
+<filter element="*.log" isEnabled="false"/>
+<filter element="*.project" isEnabled="false"/>
+<filter element="*.properties" isEnabled="false"/>
+<filter element="*.swf" isEnabled="false"/>
+<filter element="*.txt" isEnabled="false"/>
+<filter element="*.xml" isEnabled="false"/>
+</filters>
+</viewState>
+</view>
+</views>
+<perspectives activePerspective="com.adobe.flexbuilder.editors.mxml.ui.perspectives.development" activePart="com.adobe.flexbuilder.ui.StartPage">
+<perspective version="0.016" editorAreaVisible="1" fixed="0">
+<descriptor id="com.adobe.flexbuilder.editors.mxml.ui.perspectives.development" label="Flex Development" class="com.adobe.flexbuilder.editors.mxml.ui.perspectives.DevelopmentPerspectiveFactory"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.openExternalFile"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.navigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo"/>
+<alwaysOnActionSet id="org.eclipse.ui.externaltools.ExternalToolsSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.keyBindings"/>
+<alwaysOnActionSet id="org.eclipse.update.ui.softwareUpdates"/>
+<alwaysOnActionSet id="com.adobe.flexbuilder.editors.mxml.modeswitch"/>
+<alwaysOnActionSet id="com.adobe.flexbuilder.standalone.navigate"/>
+<alwaysOnActionSet id="com.adobe.flexbuilder.upgrade"/>
+<alwaysOnActionSet id="com.adobe.flexbuilder.ui.OpenStartPage"/>
+<alwaysOnActionSet id="com.adobe.flexbuilder.standalone.launch"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.debugActionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.breakpointActionSet"/>
+<alwaysOnActionSet id="com.adobe.flexbuilder.zzz.editors.common.ui.project.publish"/>
+<alwaysOnActionSet id="com.adobe.flexbuilder.editors.actionscript.ui.NavigationActions"/>
+<show_view_action id="com.adobe.flexbuilder.editors.mxml.components.ComponentsView"/>
+<show_view_action id="com.adobe.flexbuilder.editors.mxml.inspector.view.PropertiesView"/>
+<show_view_action id="com.adobe.flexbuilder.editors.mxml.states.StatesView"/>
+<show_view_action id="org.eclipse.ui.views.ResourceNavigator"/>
+<show_view_action id="org.eclipse.ui.views.ContentOutline"/>
+<show_view_action id="org.eclipse.ui.views.ProblemView"/>
+<new_wizard_action id="com.adobe.flexbuilder.editors.mxml.ui.wizards.NewMXMLApplication"/>
+<new_wizard_action id="com.adobe.flexbuilder.editors.mxml.ui.wizards.NewMXMLComponent"/>
+<new_wizard_action id="com.adobe.flexbuilder.editors.actionscript.wizards.NewActionScriptFile.flex"/>
+<new_wizard_action id="com.adobe.flexbuilder.editors.actionscript.classWizard.flex"/>
+<new_wizard_action id="com.adobe.flexbuilder.editors.actionscript.interfaceWizard.flex"/>
+<new_wizard_action id="com.adobe.flexbuilder.editors.css.wizards.NewCSSFile"/>
+<new_wizard_action id="com.adobe.flexbuilder.editors.common.ui.project.wizards.newproject"/>
+<new_wizard_action id="com.adobe.flexbuilder.editors.common.ui.project.wizards.NewActionScriptProjectWizard"/>
+<new_wizard_action id="com.adobe.flexbuilder.editors.common.ui.project.wizards.FlexLibraryProjectWizard"/>
+<new_wizard_action id="org.eclipse.ui.wizards.new.folder"/>
+<new_wizard_action id="org.eclipse.ui.wizards.new.file"/>
+<perspective_action id="com.adobe.flexbuilder.editors.mxml.ui.perspectives.development"/>
+<perspective_action id="com.adobe.flexbuilder.debug.ui.perspectives.debug"/>
+<view id="org.eclipse.ui.views.ResourceNavigator"/>
+<view id="org.eclipse.ui.views.ContentOutline"/>
+<view id="org.eclipse.ui.views.ProblemView"/>
+<layout>
+<mainWindow>
+<info part="org.eclipse.ui.internal.ViewStack@25491d" folder="true">
+<folder activePageID="org.eclipse.ui.views.ResourceNavigator" expanded="2" appearance="2">
+<page label="Navigator" content="org.eclipse.ui.views.ResourceNavigator"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info part="stickyFolderRight" relative="org.eclipse.ui.internal.ViewStack@25491d" relationship="2" ratioLeft="754" ratioRight="252" ratio="0.74950296" folder="true">
+<folder expanded="2" appearance="2">
+<page label="LabelNotFound" content="org.eclipse.help.ui.HelpView"/>
+<page label="LabelNotFound" content="org.eclipse.ui.internal.introview"/>
+<page label="LabelNotFound" content="org.eclipse.ui.cheatsheets.views.CheatSheetView"/>
+</folder>
+</info>
+<info part="org.eclipse.ui.editorss" relative="org.eclipse.ui.internal.ViewStack@25491d" relationship="2" ratioLeft="201" ratioRight="805" ratio="0.19980119"/>
+<info part="com.adobe.flexbuilder.editors.mxml.states.StatesView" relative="org.eclipse.ui.editorss" relationship="2" ratioLeft="523" ratioRight="282" ratio="0.64968944"/>
+<info part="com.adobe.flexbuilder.editors.mxml.inspector.view.PropertiesView" relative="com.adobe.flexbuilder.editors.mxml.states.StatesView" relationship="4" ratioLeft="166" ratioRight="499" ratio="0.24962406"/>
+<info part="org.eclipse.ui.internal.ViewStack@cb07ef" relative="org.eclipse.ui.editorss" relationship="4" ratioLeft="498" ratioRight="167" ratio="0.74887216" folder="true">
+<folder activePageID="org.eclipse.ui.views.ProblemView" expanded="2" appearance="2">
+<page label="Problems" content="org.eclipse.ui.views.ProblemView"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info part="outlineHolder" relative="org.eclipse.ui.internal.ViewStack@25491d" relationship="4" ratioLeft="332" ratioRight="333" ratio="0.49924812" folder="true">
+<folder activePageID="org.eclipse.ui.views.ContentOutline" expanded="2" appearance="2">
+<page label="Outline" content="org.eclipse.ui.views.ContentOutline"/>
+<page label="LabelNotFound" content="com.adobe.flexbuilder.editors.mxml.components.ComponentsView"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
+</folder>
+</info>
+</mainWindow>
+</layout>
+</perspective>
+</perspectives>
+<navigationHistory>
+<editors>
+<editor id="com.adobe.flexbuilder.ui.StartPage" factoryID="com.adobe.flexbuilder.editors.derived.ui.startpage.StartPageEditorInput" url="file:/c:/Program Files/Adobe/Flex Builder 2/plugins/com.adobe.flexbuilder.ui_2.0.155577/welcome/welcome.htm" style="20" iconpath="bundleentry://89/icons/flexbuilder16.gif"/>
+</editors>
+<item active="true" historyLabel="Flex Start Page" index="0"/>
+</navigationHistory>
+<stickyState/>
+<input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
+</page>
+<workbenchWindowAdvisor/>
+<actionBarAdvisor/>
+</window>
+<mruList/>
+</workbench>

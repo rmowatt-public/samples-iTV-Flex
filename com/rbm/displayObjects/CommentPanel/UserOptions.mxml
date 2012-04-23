@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:ViewStack xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:d="com.rbm.displayObjects.CommentPanel.*" height="100%">
+<mx:Script>
+	<![CDATA[
+		import mx.controls.Alert;
+		import mx.collections.ArrayCollection;
+		
+		[Bindable]
+		public var videoID:Number;
+		
+		[Bindable]
+		public var currentTitle:String;
+		
+		[Bindable]
+		public var movieComments:ArrayCollection;
+		
+	
+		public function triggerUpdates(id:Number):void{
+			viewComments.getVideoComments(id);
+			addComments.videoID = id;
+			//trace("trigger updates " + id);
+		}
+	]]>
+</mx:Script>
+<mx:TabNavigator id="myNav" height="100%" width="100%">
+	<d:ViewComments width="100%" id="viewComments" label="view comments" description="{currentTitle}" userComments="{movieComments}" videoID="{videoID}" />
+	<d:AddComments id="addComments" width="100%" height="100%" label="add comment" subjectName="{currentTitle}" commentSubmitted="this.triggerUpdates(event.target.videoID)" />
+	<d:AuthorContact width="100%"  label="contact author"/>
+</mx:TabNavigator>
+</mx:ViewStack>

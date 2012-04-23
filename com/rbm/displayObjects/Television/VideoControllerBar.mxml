@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:ButtonBar xmlns:mx="http://www.adobe.com/2006/mxml">
+
+<mx:Metadata>
+	[Event(name="play")]
+	[Event(name="stop")]
+	[Event(name="pause")]
+	[Event(name="mute")]
+	[Event(name="caption")]
+</mx:Metadata>
+<mx:Script>
+	<![CDATA[
+		import flash.events.Event;
+		import mx.managers.DragManager;
+		import mx.events.DragEvent;
+		import mx.core.IUIComponent;
+		import com.rbm.valueObjects.MovieItem;
+		
+
+		private function playMe():void{
+			var o:Event = new Event('play');
+			this.dispatchEvent(o);
+		}
+		private function stopMe():void{
+			var o:Event = new Event('stop');
+			this.dispatchEvent(o);
+		}
+		private function pauseMe():void{
+			var o:Event = new Event('pause');
+			this.dispatchEvent(o);
+		}
+		
+		private function muteMe():void{
+			var o:Event = new Event('mute');
+			this.dispatchEvent(o);
+		}
+		
+		private function captions():void{
+			var o:Event = new Event('caption');
+			this.dispatchEvent(o);
+		}
+		
+
+	]]>
+</mx:Script>
+		<mx:Button label="play" click="playMe()" />
+		<mx:Button label="pause" click="pauseMe()" />
+		<mx:Button label="stop" click="stopMe()" />
+		<mx:Button label="mute" click="muteMe()" />
+		<mx:Button label="captions" click="captions()" />
+</mx:ButtonBar>

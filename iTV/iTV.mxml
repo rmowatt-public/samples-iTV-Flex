@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:c="com.rbm.displayObjects.CommentPanel.*" xmlns:tv="com.rbm.displayObjects.Television.*" xmlns:vid="com.rbm.displayObjects.Videos.*">
+	<mx:states>
+		<mx:State name="userComments">
+			<mx:SetProperty target="{hbox1}" name="height" value="25"/>
+			<mx:SetProperty target="{commentpanel1}" name="height" value="400"/>
+		</mx:State>
+	</mx:states>
+<mx:Script>
+	<![CDATA[
+		import mx.controls.Alert;
+
+		private function fieldState():void{
+			if(this.currentState != 'userComments'){this.currentState='userComments';}
+			else{this.currentState = '';}
+		}
+		
+		private function tellMe(what:String):void{
+		
+		}
+
+	]]>
+</mx:Script>
+<mx:Model id="movieInventory" source="assets/movies.xml" />
+	<mx:ApplicationControlBar width="100%" dock="true">
+	<mx:Spacer width="100%" />
+		<mx:Label text="search" />
+		<mx:TextInput id="search" />
+		<mx:Button label='submit' />
+	</mx:ApplicationControlBar>
+<mx:Panel title ="i711.tv">
+	<mx:HBox width="100%" height="100%" id="hbox1">
+	<tv:VideoPlayer  id="vidFeed" play="tellMe('play')" pause="tellMe('pause')" stop="tellMe('stop')" minHeight="200" minWidth="200" loaderMovie="rtmp://vcv52e58gh.rtmphost.com/testme/spinner00.flv" />	
+	<vid:PickAVideo  height="{vidFeed.height}" width="100%" requestURL="http://localhost:8080/movies.xml" />
+	</mx:HBox>
+	<c:CommentPanel width="100%" height="100%" id="commentpanel1"/>
+</mx:Panel>
+<mx:Button label="switch states" click="fieldState()" />
+</mx:Application>

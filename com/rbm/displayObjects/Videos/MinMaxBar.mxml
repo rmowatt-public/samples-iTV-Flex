@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:ButtonBar xmlns:mx="http://www.adobe.com/2006/mxml">
+<mx:Metadata>
+	[Event(name="minimize")]
+	[Event(name="maximize")]
+</mx:Metadata>
+<mx:Script>
+	<![CDATA[
+		
+		private function minimize():void{
+			mx.controls.Alert.show('minimize');
+			var o:Event = new Event("minimize");
+			this.dispatchEvent(o);
+		}
+		
+		private function maximize():void{
+			mx.controls.Alert.show('maximize');
+			var o:Event = new Event("maximize");
+			this.dispatchEvent(o);
+		}
+	]]>
+</mx:Script>
+	<mx:Button label="min"  click="minimize()"/>
+	<mx:Button label="max" click="maximize()" />
+</mx:ButtonBar>

@@ -1,0 +1,68 @@
+<!-- saved from url=(0014)about:internet -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>PopUpManager.mxml</title>
+<link rel="stylesheet" type="text/css" href="../../../../SourceStyles.css"/>
+</head>
+
+<body><pre><span class="mxmlCdata">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="mxmlComponent">&lt;mx:UIComponent</span> xmlns:mx=&quot;<span class="mxmlString">http://www.adobe.com/2006/mxml</span>&quot; <span class="mxmlComponent">&gt;</span>
+<span class="mxmlTag">&lt;mx:Script&gt;</span>
+    <span class="asOperator">&lt;!</span><span class="asBracket">[</span>CDATA<span class="asBracket">[</span>
+        <span class="asReserved">import</span> mx.rpc.events.FaultEvent;
+            <span class="asReserved">import</span> mx.controls.Alert;
+            <span class="asReserved">import</span> mx.rpc.events.ResultEvent;
+            
+            <span class="asReserved">private</span> <span class="asFunction">function</span> makePopUp<span class="asBracket">(</span>e<span class="asOperator">:</span>ResultEvent<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+                <span class="asTrace">trace</span><span class="asBracket">(</span>e.toString<span class="asBracket">())</span>;
+            <span class="asBracket">}</span>
+            
+            <span class="asReserved">private</span> <span class="asFunction">function</span> imBad<span class="asBracket">(</span>e<span class="asOperator">:</span>FaultEvent<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+                <span class="asTrace">trace</span><span class="asBracket">(</span>e.message<span class="asBracket">)</span>;
+                
+            <span class="asBracket">}</span>
+            
+            <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+            <span class="asReserved">public</span> <span class="asVar">var</span> movieID<span class="asOperator">:</span>Number;
+            
+            <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+            <span class="asReserved">public</span> <span class="asVar">var</span> comment<span class="asOperator">:</span>String;
+            
+            <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+            <span class="asReserved">public</span> <span class="asVar">var</span> cuePoints<span class="asOperator">:</span>String;
+            
+            
+    <span class="asBracket">]]</span><span class="asOperator">&gt;</span>
+<span class="mxmlTag">&lt;/mx:Script&gt;</span>
+        <span class="mxmlComponent">&lt;mx:WebService</span>
+            id=&quot;<span class="mxmlString">popUp</span>&quot;
+            wsdl=&quot;<span class="mxmlString">http://draftjennabush.com/iTV/popUp.cfc?wsdl</span>&quot;
+            fault=&quot;imBad<span class="asBracket">(</span>event<span class="asBracket">)</span>&quot;
+        <span class="mxmlComponent">&gt;</span>
+        <span class="mxmlComponent">&lt;mx:operation</span> name=&quot;<span class="mxmlString">getAPopUp</span>&quot; result=&quot;makePopUp<span class="asBracket">(</span>event<span class="asBracket">)</span>&quot; <span class="mxmlComponent">&gt;</span>
+        <span class="mxmlComponent">&lt;mx:request</span> xmlns=&quot;&quot;<span class="mxmlComponent">&gt;</span>
+                <span class="mxmlComponent">&lt;id&gt;</span>
+                    1
+                <span class="mxmlComponent">&lt;/id&gt;</span>
+            <span class="mxmlComponent">&lt;/mx:request&gt;</span>
+        <span class="mxmlComponent">&lt;/mx:operation&gt;</span>
+        
+        <span class="mxmlComponent">&lt;mx:operation</span> name=&quot;<span class="mxmlString">addPopUp</span>&quot; result=&quot;makePopUp<span class="asBracket">(</span>event<span class="asBracket">)</span>&quot; <span class="mxmlComponent">&gt;</span>
+        <span class="mxmlComponent">&lt;mx:request</span> xmlns=&quot;&quot;<span class="mxmlComponent">&gt;</span>
+                <span class="mxmlComponent">&lt;movieID&gt;</span>
+                {movieID}
+                <span class="mxmlComponent">&lt;/movieID&gt;</span>
+                <span class="mxmlComponent">&lt;comment&gt;</span>
+                {comment}
+                <span class="mxmlComponent">&lt;/comment&gt;</span>
+                <span class="mxmlComponent">&lt;cuePoint&gt;</span>
+                {cuePoints}
+                <span class="mxmlComponent">&lt;/cuePoint&gt;</span>
+            <span class="mxmlComponent">&lt;/mx:request&gt;</span>
+        <span class="mxmlComponent">&lt;/mx:operation&gt;</span>
+        
+        <span class="mxmlComponent">&lt;/mx:WebService&gt;</span>
+<span class="mxmlComponent">&lt;/mx:UIComponent&gt;</span></pre></body>
+</html>

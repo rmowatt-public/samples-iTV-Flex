@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<index>
+	<title>Source of iTV</title>
+	<nodes>
+		<node label=".metadata">
+		</node>
+		<node label="assets">
+			<node label="images">
+				<node label="declaration.jpg" icon="imageIcon" url="source/assets/images/declaration.jpg.html"/>
+				<node label="dog.jpg" icon="imageIcon" url="source/assets/images/dog.jpg.html"/>
+				<node label="fight.jpg" icon="imageIcon" url="source/assets/images/fight.jpg.html"/>
+				<node label="forYou.jpg" icon="imageIcon" url="source/assets/images/forYou.jpg.html"/>
+				<node label="lsd.jpg" icon="imageIcon" url="source/assets/images/lsd.jpg.html"/>
+				<node label="tubby.jpg" icon="imageIcon" url="source/assets/images/tubby.jpg.html"/>
+			</node>
+			<node label="movies.xml" url="source/assets/movies.xml.txt"/>
+			<node label="spinner.swf" icon="swfIcon" url="source/assets/spinner.swf"/>
+		</node>
+		<node label="com.rbm.displayObjects.CommentPanel" icon="packageIcon" expanded="true">
+			<node label="AddComments.mxml" icon="mxmlIcon" url="source/com/rbm/displayObjects/CommentPanel/AddComments.mxml.html"/>
+			<node label="AuthorContact.mxml" icon="mxmlIcon" url="source/com/rbm/displayObjects/CommentPanel/AuthorContact.mxml.html"/>
+			<node label="CommentPanel.mxml" icon="mxmlIcon" url="source/com/rbm/displayObjects/CommentPanel/CommentPanel.mxml.html"/>
+			<node label="UserOptions.mxml" icon="mxmlIcon" url="source/com/rbm/displayObjects/CommentPanel/UserOptions.mxml.html"/>
+			<node label="ViewComments.mxml" icon="mxmlIcon" url="source/com/rbm/displayObjects/CommentPanel/ViewComments.mxml.html"/>
+		</node>
+		<node label="com.rbm.displayObjects.Television" icon="packageIcon" expanded="true">
+			<node label="VideoControllerBar.mxml" icon="mxmlIcon" url="source/com/rbm/displayObjects/Television/VideoControllerBar.mxml.html"/>
+			<node label="VideoPlayer.mxml" icon="mxmlIcon" url="source/com/rbm/displayObjects/Television/VideoPlayer.mxml.html"/>
+		</node>
+		<node label="com.rbm.displayObjects.Videos" icon="packageIcon" expanded="true">
+			<node label="PickAVideo.mxml" icon="mxmlIcon" url="source/com/rbm/displayObjects/Videos/PickAVideo.mxml.html"/>
+		</node>
+		<node label="com.rbm.displayObjects.VideoSelection" icon="packageIcon" expanded="true">
+			<node label="MovieItemObject.mxml" icon="mxmlIcon" url="source/com/rbm/displayObjects/VideoSelection/MovieItemObject.mxml.html"/>
+		</node>
+		<node label="com.rbm.valueObjects" icon="packageIcon" expanded="true">
+			<node label="MovieItem.as" icon="actionScriptIcon" url="source/com/rbm/valueObjects/MovieItem.as.html"/>
+		</node>
+		<node label="events" icon="packageIcon" expanded="true">
+			<node label="MovieSelectedEvent.as" icon="actionScriptIcon" url="source/events/MovieSelectedEvent.as.html"/>
+		</node>
+		<node label="iTV" icon="packageIcon" expanded="true">
+			<node label="iTV.mxml" icon="mxmlIcon" url="source/iTV/iTV.mxml.html"/>
+		</node>
+		<node label="iTV.bin">
+			<node label="AC_OETags.js" url="source/iTV/bin/AC_OETags.js"/>
+			<node label="history.htm" icon="htmlIcon" url="source/iTV/bin/history.htm"/>
+			<node label="history.js" url="source/iTV/bin/history.js"/>
+			<node label="history.swf" icon="swfIcon" url="source/iTV/bin/history.swf"/>
+			<node label="iTV-debug.html" icon="htmlIcon" url="source/iTV/bin/iTV-debug.html"/>
+			<node label="iTV-debug.swf" icon="swfIcon" url="source/iTV/bin/iTV-debug.swf"/>
+			<node label="iTV.html" icon="htmlIcon" url="source/iTV/bin/iTV.html"/>
+			<node label="iTV.swf" icon="swfIcon" url="source/iTV/bin/iTV.swf"/>
+			<node label="playerProductInstall.swf" icon="swfIcon" url="source/iTV/bin/playerProductInstall.swf"/>
+		</node>
+		<node label="iTV.html-template">
+			<node label="AC_OETags.js" url="source/iTV/html-template/AC_OETags.js"/>
+			<node label="history.htm" icon="htmlIcon" url="source/iTV/html-template/history.htm"/>
+			<node label="history.js" url="source/iTV/html-template/history.js"/>
+			<node label="history.swf" icon="swfIcon" url="source/iTV/html-template/history.swf"/>
+			<node label="index.template.html" icon="htmlIcon" url="source/iTV/html-template/index.template.html"/>
+			<node label="playerProductInstall.swf" icon="swfIcon" url="source/iTV/html-template/playerProductInstall.swf"/>
+		</node>
+		<node label="styles">
+			<node label="styles.css" icon="cssIcon" url="source/styles/styles.css.html"/>
+		</node>
+		<node selected="true" label="iTV.mxml" icon="mxmlAppIcon" url="source/iTV.mxml.html"/>
+	</nodes>
+	<zipfile label="Download source (ZIP, 980K)" url="iTV.zip"/>
+	<sdklink label="Download Flex 2 SDK" url="http://www.adobe.com/go/flex2_sdk"/>
+</index>

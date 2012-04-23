@@ -1,0 +1,190 @@
+<!-- saved from url=(0014)about:internet -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>iTV.mxml</title>
+<link rel="stylesheet" type="text/css" href="../SourceStyles.css"/>
+</head>
+
+<body><pre><span class="mxmlCdata">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="mxmlComponent">&lt;mx:Application</span> xmlns:mx=&quot;<span class="mxmlString">http://www.adobe.com/2006/mxml</span>&quot; xmlns:tv=&quot;<span class="mxmlString">com.rbm.displayObjects.Television.*</span>&quot; xmlns:vid=&quot;<span class="mxmlString">com.rbm.displayObjects.Videos.*</span>&quot; xmlns:man=&quot;<span class="mxmlString">com.rbm.managers.*</span>&quot; xmlns:d=&quot;<span class="mxmlString">com.rbm.displayObjects.CommentPanel.*</span>&quot; xmlns:f=&quot;<span class="mxmlString">com.rbm.displayObjects.features.*</span>&quot; layout=&quot;<span class="mxmlString">absolute</span>&quot;
+    creationComplete=&quot;init<span class="asBracket">()</span>&quot; viewSourceURL=&quot;<span class="mxmlString">srcview/index.html</span>&quot;<span class="mxmlComponent">&gt;</span>
+    <span class="mxmlComponent">&lt;mx:states&gt;</span>
+        <span class="mxmlComponent">&lt;mx:State</span> name=&quot;<span class="mxmlString">userComments</span>&quot;<span class="mxmlComponent">&gt;</span>
+            <span class="mxmlComponent">&lt;mx:SetProperty</span> target=&quot;<span class="mxmlString">{</span>hbox1<span class="mxmlString">}</span>&quot; name=&quot;<span class="mxmlString">height</span>&quot; value=&quot;<span class="mxmlString">25</span>&quot;<span class="mxmlComponent">/&gt;</span>
+            <span class="mxmlComponent">&lt;mx:SetProperty</span> target=&quot;<span class="mxmlString">{</span>commentpanel<span class="mxmlString">}</span>&quot; name=&quot;<span class="mxmlString">height</span>&quot; value=&quot;<span class="mxmlString">400</span>&quot;<span class="mxmlComponent">/&gt;</span>
+        <span class="mxmlComponent">&lt;/mx:State&gt;</span>
+        <span class="mxmlComponent">&lt;mx:State</span> name=&quot;<span class="mxmlString">fold</span>&quot;<span class="mxmlComponent">&gt;</span>
+            <span class="mxmlComponent">&lt;mx:AddChild</span> relativeTo=&quot;<span class="mxmlString">{</span>pickavideo1<span class="mxmlString">}</span>&quot; position=&quot;<span class="mxmlString">before</span>&quot;<span class="mxmlComponent">&gt;</span>
+                <span class="mxmlComponent">&lt;mx:VBox</span> height=&quot;<span class="mxmlString">100%</span>&quot;<span class="mxmlComponent">&gt;</span>
+                <span class="mxmlComponent">&lt;f:addAPopUp</span> id=&apos;<span class="mxmlString">popUpEditor</span>&apos; width=&quot;<span class="mxmlString">{</span>colorcontroller1.width<span class="mxmlString">}</span>&quot; movieID=&quot;<span class="mxmlString">{</span><span class="asReserved">this</span>.currentMovieID<span class="mxmlString">}</span>&quot; <span class="mxmlComponent">&gt;</span>
+                    <span class="mxmlComponent">&lt;/f:addAPopUp&gt;</span>
+                    <span class="mxmlComponent">&lt;tv:ColorController</span> height=&quot;<span class="mxmlString">100%</span>&quot; colorUpdated=&quot;<span class="asTrace">trace</span><span class="asBracket">(</span>event.colors.toString<span class="asBracket">())</span>&quot;  id=&quot;<span class="mxmlString">colorcontroller1</span>&quot;<span class="mxmlComponent">/&gt;</span>
+                <span class="mxmlComponent">&lt;/mx:VBox&gt;</span>
+            <span class="mxmlComponent">&lt;/mx:AddChild&gt;</span>
+        <span class="mxmlComponent">&lt;/mx:State&gt;</span>
+        <span class="mxmlComponent">&lt;mx:State</span> name=&quot;<span class="mxmlString">LV</span>&quot; basedOn=&quot;<span class="mxmlString">fold</span>&quot;<span class="mxmlComponent">&gt;</span>
+            <span class="mxmlComponent">&lt;mx:SetProperty</span> target=&quot;<span class="mxmlString">{</span>vidFeed<span class="mxmlString">}</span>&quot; name=&quot;<span class="mxmlString">currentState</span>&quot; value=&quot;<span class="mxmlString">largeScreen</span>&quot;<span class="mxmlComponent">/&gt;</span>
+            <span class="mxmlComponent">&lt;mx:RemoveChild</span> target=&quot;<span class="mxmlString">{</span>commentpanel<span class="mxmlString">}</span>&quot;<span class="mxmlComponent">/&gt;</span>
+            <span class="mxmlComponent">&lt;mx:RemoveChild</span> target=&quot;<span class="mxmlString">{</span>commentpanel<span class="mxmlString">}</span>&quot;<span class="mxmlComponent">/&gt;</span>
+            <span class="mxmlComponent">&lt;mx:RemoveChild</span> target=&quot;<span class="mxmlString">{</span>colorcontroller1<span class="mxmlString">}</span>&quot;<span class="mxmlComponent">/&gt;</span>
+            <span class="mxmlComponent">&lt;mx:RemoveChild</span> target=&quot;<span class="mxmlString">{</span>popUpEditor<span class="mxmlString">}</span>&quot;<span class="mxmlComponent">/&gt;</span>
+        <span class="mxmlComponent">&lt;/mx:State&gt;</span>
+    
+    <span class="mxmlComponent">&lt;/mx:states&gt;</span>
+    <span class="mxmlTag">&lt;mx:Script&gt;</span>
+        <span class="asOperator">&lt;!</span><span class="asBracket">[</span>CDATA<span class="asBracket">[</span>
+            <span class="asReserved">import</span> events.VideoPlayerEvent;
+            <span class="asReserved">import</span> events.MovieSelectedEvent;
+            <span class="asReserved">import</span> events.CaptionEvent;
+            <span class="asReserved">import</span> events.ColorChangeEvent;
+            <span class="asReserved">import</span> mx.controls.Alert;
+            <span class="asReserved">import</span> com.rbm.valueObjects.MovieItem;
+            
+            
+            <span class="asDoc">/*********** CONFIG VARS ***********************/</span>
+            <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span><span class="asComment">//path to web service that will provide us with movie catalog
+</span>            <span class="asReserved">private</span> <span class="asVar">var</span> movieCatalogRequests<span class="asOperator">:</span>String <span class="asOperator">=</span> <span class="asString">&apos;http://draftjennabush.com/iTV/movies.cfc?wsdl&apos;</span>;
+            
+            <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span><span class="asComment">//path to web service that provides, adds comments based on movieId
+</span>            <span class="asReserved">private</span> <span class="asVar">var</span> commentRequests<span class="asOperator">:</span>String <span class="asOperator">=</span> <span class="asString">&apos;http://draftjennabush.com/iTV/comment.cfc?wsdl&apos;</span>;
+            
+            <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span><span class="asComment">//path to current caption file
+</span>            <span class="asReserved">private</span> <span class="asVar">var</span> captionRequest<span class="asOperator">:</span>String <span class="asOperator">=</span> <span class="asString">&apos;http://draftjennabush.com/iTV/videoXML.php?id=&apos;</span>;
+            
+            <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+            <span class="asReserved">public</span> <span class="asVar">var</span> defaultMovie<span class="asOperator">:</span>String <span class="asOperator">=</span> <span class="asString">&apos;rtmp://vcv52e58gh.rtmphost.com/testme/spinner00.flv&apos;</span>;
+            
+            <span class="asDoc">/**************** END CONFIG VARS **********************/</span>
+            
+            <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+            <span class="asReserved">public</span> <span class="asVar">var</span> currentMovieTitle<span class="asOperator">:</span>String <span class="asOperator">=</span> <span class="asString">&apos;&apos;</span>;<span class="asComment">//Title of the currently playing video
+</span>            
+            <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+            <span class="asReserved">public</span> <span class="asVar">var</span> myCaptions<span class="asOperator">:</span>Array <span class="asOperator">=</span> <span class="asReserved">new</span> Array<span class="asBracket">()</span>;<span class="asComment">// an associative array of captions and their time
+</span>            
+            <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+            <span class="asReserved">public</span> <span class="asVar">var</span> currentMovieID<span class="asOperator">:</span>Number;
+            
+            <span class="asReserved">private</span> <span class="asFunction">function</span> play<span class="asBracket">(</span>event<span class="asOperator">:</span>events.VideoPlayerEvent<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+                <span class="asReserved">if</span><span class="asBracket">(</span>popUpEditor<span class="asBracket">){</span>
+                popUpEditor.disable<span class="asBracket">(</span>String<span class="asBracket">(</span>event.myVideo.playheadTime<span class="asBracket">))</span>;<span class="asComment">//enable popUpEditor and send the cuePoint time
+</span>                <span class="asBracket">}</span>
+            <span class="asBracket">}</span>
+            
+            <span class="asReserved">private</span> <span class="asFunction">function</span> fieldState<span class="asBracket">(</span>i<span class="asOperator">:</span>Boolean<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span><span class="asComment">//switches between states
+</span>                <span class="asComment">//if(this.currentState != &apos;fold&apos;){this.currentState=&apos;fold&apos;;}
+</span>                <span class="asComment">//else{this.currentState = &apos;&apos;;}
+</span>            <span class="asComment">//    if(this.currentState != &apos;largeScreen&apos;){this.currentState=&apos;largeScreen&apos;;}
+</span>                <span class="asComment">//else{this.currentState = &apos;&apos;;}
+</span>                <span class="asReserved">if</span><span class="asBracket">(</span>i<span class="asBracket">){</span>
+                <span class="asComment">//vidFeed.setDisplayWidth(400);
+</span>                <span class="asReserved">this</span>.setCurrentState<span class="asBracket">(</span><span class="asString">&apos;LV&apos;</span><span class="asBracket">)</span>;
+                <span class="asBracket">}</span>
+                <span class="asReserved">else</span><span class="asBracket">{</span>
+                <span class="asComment">//    vidFeed.setDisplayWidth(VideoPlayer.DEFAULT_WIDTH);
+</span>                <span class="asReserved">this</span>.currentState <span class="asOperator">=</span><span class="asString">&apos;&apos;</span>;
+                <span class="asBracket">}</span>
+            <span class="asBracket">}</span>
+            
+            <span class="asReserved">private</span> <span class="asFunction">function</span> tellMe<span class="asBracket">(</span>what<span class="asOperator">:</span>String<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span><span class="asComment">//a development function to trace and alert
+</span>                    <span class="asComment">//Alert.show(what);
+</span>            <span class="asBracket">}</span>
+            
+            <span class="asReserved">private</span> <span class="asFunction">function</span> loadCaptions<span class="asBracket">(</span>event<span class="asOperator">:</span>CaptionEvent<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span><span class="asComment">//populates the captions
+</span>                <span class="asReserved">this</span>.myCaptions <span class="asOperator">=</span> event.captions;
+                vidFeed.load<span class="asBracket">()</span>;
+            <span class="asBracket">}</span>
+            
+            <span class="asReserved">private</span> <span class="asFunction">function</span> movieSelected<span class="asBracket">(</span>event<span class="asOperator">:</span>MovieSelectedEvent<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+                <span class="asReserved">if</span><span class="asBracket">(</span>popUpEditor<span class="asBracket">){</span>
+                popUpEditor.disable<span class="asBracket">(</span><span class="asString">&apos;0&apos;</span><span class="asBracket">)</span>;
+                <span class="asBracket">}</span>
+                <span class="asReserved">this</span>.vidFeed.startVid<span class="asBracket">(</span>MovieItem<span class="asBracket">(</span>event.movieInfo<span class="asBracket">))</span>;
+                 <span class="asReserved">this</span>.currentMovieID <span class="asOperator">=</span> event.movieInfo.movieID;<span class="asComment">//the id of the currently playing movie
+</span>                <span class="asReserved">this</span>.currentMovieTitle <span class="asOperator">=</span> event.movieInfo.movieName;<span class="asComment">//change title
+</span>                commentpanel.triggerUpdates<span class="asBracket">(</span>event.movieInfo.movieID<span class="asBracket">)</span>;<span class="asComment">//tell comment panel to load comments for new movie
+</span>                captions.update<span class="asBracket">()</span>;<span class="asComment">//update our captions for the new selection
+</span>            <span class="asBracket">}</span>
+            
+            <span class="asReserved">private</span> <span class="asFunction">function</span> imPaused<span class="asBracket">(</span>event<span class="asOperator">:</span>events.VideoPlayerEvent<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+                <span class="asReserved">if</span><span class="asBracket">(</span>popUpEditor<span class="asBracket">){</span>
+                popUpEditor.enable<span class="asBracket">(</span>String<span class="asBracket">(</span>event.myVideo.playheadTime<span class="asBracket">))</span>;<span class="asComment">//enable popUpEditor and send the cuePoint time
+</span>                <span class="asBracket">}</span>
+                <span class="asTrace">trace</span><span class="asBracket">(</span>String<span class="asBracket">(</span>event.myVideo.playheadTime<span class="asBracket">))</span>;
+            <span class="asBracket">}</span>
+            
+            <span class="asReserved">private</span> <span class="asFunction">function</span> setPopUp<span class="asBracket">(</span>event<span class="asOperator">:</span>events.VideoPlayerEvent<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+                <span class="asReserved">if</span><span class="asBracket">(</span>popUpEditor<span class="asBracket">){</span>
+                    popUpEditor.disable<span class="asBracket">(</span>String<span class="asBracket">(</span>event.myVideo.playheadTime<span class="asBracket">))</span>;
+                <span class="asBracket">}</span>
+            <span class="asBracket">}</span>
+            
+            <span class="asReserved">private</span> <span class="asFunction">function</span> addPopUp<span class="asBracket">(</span>event<span class="asOperator">:</span>events.VideoPlayerEvent<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+                <span class="asReserved">this</span>.currentState <span class="asOperator">=</span> <span class="asString">&apos;fold&apos;</span>;
+                vidFeed.pauseMe<span class="asBracket">()</span>;
+                
+            <span class="asBracket">}</span>
+            
+            <span class="asReserved">private</span> <span class="asFunction">function</span> showListingsComments<span class="asBracket">(</span>event<span class="asOperator">:</span>MovieSelectedEvent<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+                commentpanel.addATab<span class="asBracket">(</span>Number<span class="asBracket">(</span>event.movieInfo.movieID<span class="asBracket">)</span>,String<span class="asBracket">(</span>event.movieInfo.movieName<span class="asBracket">))</span>;
+            <span class="asBracket">}</span>
+            
+            <span class="asReserved">private</span> <span class="asFunction">function</span> init<span class="asBracket">()</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+                pickavideo1.addEventListener<span class="asBracket">(</span><span class="asString">&apos;titleClicked&apos;</span>, movieSelected<span class="asBracket">)</span>;
+                pickavideo1.addEventListener<span class="asBracket">(</span><span class="asString">&apos;showComments&apos;</span>, showListingsComments<span class="asBracket">)</span>;
+            <span class="asBracket">}</span>
+        <span class="asBracket">]]</span><span class="asOperator">&gt;</span>
+    <span class="mxmlTag">&lt;/mx:Script&gt;</span>
+    <span class="mxmlTag">&lt;mx:Style</span> source=&quot;<span class="mxmlString">styles/styles.css</span>&quot; <span class="mxmlTag">/&gt;</span>
+
+    <span class="mxmlComponent">&lt;man:CaptionLoader</span> 
+        id=&quot;<span class="mxmlString">captions</span>&quot; 
+        captionSource=&quot;<span class="mxmlString">{</span>captionRequest<span class="mxmlString">}</span>&quot; 
+        captionsLoaded=&quot;loadCaptions<span class="asBracket">(</span>event<span class="asBracket">)</span>&quot;  
+        currentID = &quot;<span class="mxmlString">{</span>currentMovieID<span class="mxmlString">}</span>&quot;
+    <span class="mxmlComponent">/&gt;</span>
+
+    <span class="mxmlComponent">&lt;mx:ApplicationControlBar</span> width=&quot;<span class="mxmlString">100%</span>&quot; dock=&quot;<span class="mxmlString">true</span>&quot; x=&quot;<span class="mxmlString">-1</span>&quot; y=&quot;<span class="mxmlString">-1</span>&quot;<span class="mxmlComponent">&gt;</span>
+        <span class="mxmlComponent">&lt;mx:Spacer</span> width=&quot;<span class="mxmlString">100%</span>&quot; <span class="mxmlComponent">/&gt;</span>
+        <span class="mxmlComponent">&lt;mx:Label</span> text=&quot;<span class="mxmlString">search</span>&quot; <span class="mxmlComponent">/&gt;</span>
+        <span class="mxmlComponent">&lt;mx:TextInput</span> id=&quot;<span class="mxmlString">search</span>&quot; <span class="mxmlComponent">/&gt;</span>
+        <span class="mxmlComponent">&lt;mx:Button</span> label=&apos;<span class="mxmlString">submit</span>&apos; <span class="mxmlComponent">/&gt;</span>
+    <span class="mxmlComponent">&lt;/mx:ApplicationControlBar&gt;</span>
+    <span class="mxmlComponent">&lt;mx:Panel</span> title =&quot;<span class="mxmlString">HAZE.tv</span>&quot; y=&quot;<span class="mxmlString">19</span>&quot; left=&quot;<span class="mxmlString">150</span>&quot; right=&quot;<span class="mxmlString">150</span>&quot;<span class="mxmlComponent">&gt;</span>
+        <span class="mxmlComponent">&lt;mx:HBox</span> width=&quot;<span class="mxmlString">100%</span>&quot; height=&quot;<span class="mxmlString">100%</span>&quot; id=&quot;<span class="mxmlString">hbox1</span>&quot; x=&quot;<span class="mxmlString">0</span>&quot; y=&quot;<span class="mxmlString">0</span>&quot;<span class="mxmlComponent">&gt;</span>
+        
+        <span class="mxmlComment">&lt;!--</span><span class="mxmlComment"> The video player is found in the television package and consists of the visual player itself
+            the control bar and the captioning component </span><span class="mxmlComment">--&gt;</span>
+            
+            <span class="mxmlComponent">&lt;tv:VideoPlayer</span>  
+                id=&quot;<span class="mxmlString">vidFeed</span>&quot; 
+                play=&quot;play<span class="asBracket">(</span>event<span class="asBracket">)</span>&quot; 
+                pause=&quot;imPaused<span class="asBracket">(</span>event<span class="asBracket">)</span>&quot; 
+                stop=&quot;vidFeed.setDisplayWidth<span class="asBracket">(</span>VideoPlayer.DEFAULT_WIDTH<span class="asBracket">)</span>&quot; 
+                minHeight=&quot;<span class="mxmlString">200</span>&quot; minWidth=&quot;<span class="mxmlString">200</span>&quot; 
+                loaderMovie=&quot;<span class="mxmlString">{</span>defaultMovie<span class="mxmlString">}</span>&quot;
+                movieSelected=&quot;movieSelected<span class="asBracket">(</span>event<span class="asBracket">)</span>&quot;
+                myCuePoints = &quot;<span class="mxmlString">{</span>myCaptions<span class="mxmlString">}</span>&quot;
+                captionAutoOn=&quot;<span class="mxmlString">false</span>&quot;
+                addCue=&quot;<span class="mxmlString">addPopUp(event)</span>&quot;
+            <span class="mxmlComponent">/&gt;</span>    
+            
+        <span class="mxmlComment">&lt;!--</span><span class="mxmlComment"> Pick a video is the controller component for displaying movies and categories </span><span class="mxmlComment">--&gt;</span>
+        
+            <span class="mxmlComponent">&lt;vid:PickAVideo</span>  height=&quot;<span class="mxmlString">{</span>vidFeed.height<span class="mxmlString">}</span>&quot; width=&quot;<span class="mxmlString">100%</span>&quot; requestURL=&quot;<span class="mxmlString">{</span>movieCatalogRequests<span class="mxmlString">}</span>&quot;  id=&quot;<span class="mxmlString">pickavideo1</span>&quot;<span class="mxmlComponent">/&gt;</span>
+        <span class="mxmlComponent">&lt;/mx:HBox&gt;</span>
+        
+        <span class="mxmlComment">&lt;!--</span><span class="mxmlComment"> User options is the controller for the add comment, view comments etc.. , </span><span class="mxmlComment">--&gt;</span>
+        
+        <span class="mxmlComponent">&lt;d:UserOptions</span> width=&quot;<span class="mxmlString">100%</span>&quot; height=&quot;<span class="mxmlString">100%</span>&quot; id=&quot;<span class="mxmlString">commentpanel</span>&quot; x=&quot;<span class="mxmlString">327</span>&quot; y=&quot;<span class="mxmlString">0</span>&quot; currentTitle=&quot;<span class="mxmlString">{</span>currentMovieTitle<span class="mxmlString">}</span>&quot; requestURL=&quot;<span class="mxmlString">{</span>commentRequests<span class="mxmlString">}</span>&quot; <span class="mxmlComponent">/&gt;</span>
+        <span class="mxmlComponent">&lt;mx:HBox&gt;</span>
+            <span class="mxmlComponent">&lt;mx:Button</span> label=&quot;<span class="mxmlString">switch states</span>&quot; click=&quot;fieldState<span class="asBracket">(</span><span class="asReserved">true</span><span class="asBracket">)</span>&quot; bottom=&quot;<span class="mxmlString">1</span>&quot; left=&quot;<span class="mxmlString">150</span>&quot; right=&quot;<span class="mxmlString">150</span>&quot;<span class="mxmlComponent">/&gt;</span>
+        <span class="mxmlComponent">&lt;mx:Button</span> label=&quot;<span class="mxmlString">switch states</span>&quot; click=&quot;fieldState<span class="asBracket">(</span><span class="asReserved">false</span><span class="asBracket">)</span>&quot; bottom=&quot;<span class="mxmlString">1</span>&quot; left=&quot;<span class="mxmlString">150</span>&quot; right=&quot;<span class="mxmlString">150</span>&quot;<span class="mxmlComponent">/&gt;</span>
+        
+        <span class="mxmlComponent">&lt;/mx:HBox&gt;</span>
+    <span class="mxmlComponent">&lt;/mx:Panel&gt;</span>
+    
+<span class="mxmlComponent">&lt;/mx:Application&gt;</span></pre></body>
+</html>

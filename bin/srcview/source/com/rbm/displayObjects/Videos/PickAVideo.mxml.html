@@ -1,0 +1,41 @@
+<!-- saved from url=(0014)about:internet -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>PickAVideo.mxml</title>
+<link rel="stylesheet" type="text/css" href="../../../../../SourceStyles.css"/>
+</head>
+
+<body><pre><span class="mxmlCdata">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="mxmlComponent">&lt;mx:Panel</span> xmlns:mx=&quot;<span class="mxmlString">http://www.adobe.com/2006/mxml</span>&quot; layout=&quot;<span class="mxmlString">horizontal</span>&quot; xmlns:c=&quot;<span class="mxmlString">com.rbm.displayObjects.CommentPanel.*</span>&quot; 
+            xmlns:vs=&quot;<span class="mxmlString">com.rbm.displayObjects.VideoSelection.*</span>&quot; title=&quot;<span class="mxmlString">Other Videos</span>&quot; creationComplete=&quot;movieInventory.send<span class="asBracket">()</span>&quot;<span class="mxmlComponent">&gt;</span>
+    <span class="mxmlTag">&lt;mx:Script&gt;</span>
+        <span class="asOperator">&lt;!</span><span class="asBracket">[</span>CDATA<span class="asBracket">[</span>
+            <span class="asReserved">import</span> com.rbm.displayObjects.VideoSelection.MovieItemObject;
+            <span class="asReserved">import</span> com.rbm.valueObjects.<span class="asOperator">*</span>;
+            <span class="asReserved">import</span> mx.collections.ArrayCollection;
+            <span class="asReserved">import</span> mx.rpc.events.ResultEvent;
+            
+            <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+            <span class="asReserved">public</span> <span class="asVar">var</span> myMovie<span class="asOperator">:</span>MovieItem;
+            
+            <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+            <span class="asReserved">public</span> <span class="asVar">var</span> requestURL<span class="asOperator">:</span>String;
+            
+            <span class="asReserved">private</span> <span class="asFunction">function</span> makeMovies<span class="asBracket">(</span>event<span class="asOperator">:</span>ResultEvent<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+                <span class="asReserved">for</span> <span class="asReserved">each</span><span class="asBracket">(</span><span class="asVar">var</span> m<span class="asOperator">:</span>XML <span class="asReserved">in</span> event.result..movie<span class="asBracket">){</span>
+                    myMovie <span class="asOperator">=</span> <span class="asReserved">new</span> MovieItem<span class="asBracket">(</span>12 , m.movieName , m.moviePath , m.movieDescription, m.totalPlays, m.teaserImage<span class="asBracket">)</span>;
+                    <span class="asVar">var</span> vs<span class="asOperator">:</span>MovieItemObject<span class="asOperator">=</span> <span class="asReserved">new</span> MovieItemObject<span class="asBracket">()</span>;
+                    vs.label <span class="asOperator">=</span> m.movieName;
+                    vs.myItem <span class="asOperator">=</span> myMovie;
+                    <span class="asTrace">trace</span><span class="asBracket">(</span>m.moviePath<span class="asBracket">)</span>;
+                <span class="asReserved">this</span>.mAccordion.addChild<span class="asBracket">(</span>vs<span class="asBracket">)</span>;
+                <span class="asBracket">}</span>
+            <span class="asBracket">}</span>
+        <span class="asBracket">]]</span><span class="asOperator">&gt;</span>
+    <span class="mxmlTag">&lt;/mx:Script&gt;</span>
+    <span class="mxmlComponent">&lt;mx:HTTPService</span> id=&quot;<span class="mxmlString">movieInventory</span>&quot; url=&quot;<span class="mxmlString">{</span>requestURL<span class="mxmlString">}</span>&quot; result=&quot;makeMovies<span class="asBracket">(</span>event<span class="asBracket">)</span>&quot; resultFormat=&quot;<span class="mxmlString">e4x</span>&quot;<span class="mxmlComponent">/&gt;</span>
+    <span class="mxmlComponent">&lt;mx:Accordion</span> selectedIndex=&quot;<span class="mxmlString">3</span>&quot; id=&quot;<span class="mxmlString">mAccordion</span>&quot; height=&quot;<span class="mxmlString">100%</span>&quot; width=&quot;<span class="mxmlString">100%</span>&quot; <span class="mxmlComponent">/&gt;</span>
+<span class="mxmlComponent">&lt;/mx:Panel&gt;</span></pre></body>
+</html>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" creationComplete ="init()" >
+	<mx:Script>{
+		[Bindable]
+		public var date:String;
+		
+	private function init():void{
+		if(!data){
+			date = null;
+		}
+		else{
+			date = formatter.format(data.DATE);
+		}
+	}
+	}
+	</mx:Script>
+	<mx:DateFormatter id="formatter" formatString="  LL:NN A on MM/DD/YYYY" />
+	<mx:Label text="{date}" styleName="commentsDate" />
+</mx:Canvas>

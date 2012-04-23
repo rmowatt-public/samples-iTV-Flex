@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<index>
+	<title>Source of iTV</title>
+	<nodes>
+		<node label=".metadata">
+		</node>
+		<node label="assets">
+			<node label="images">
+				<node label="stars">
+					<node label="1star.gif" icon="imageIcon" url="source/assets/images/stars/1star.gif.html"/>
+					<node label="2star.gif" icon="imageIcon" url="source/assets/images/stars/2star.gif.html"/>
+					<node label="3star.gif" icon="imageIcon" url="source/assets/images/stars/3star.gif.html"/>
+					<node label="4star.gif" icon="imageIcon" url="source/assets/images/stars/4star.gif.html"/>
+					<node label="5star.gif" icon="imageIcon" url="source/assets/images/stars/5star.gif.html"/>
+				</node>
+				<node label="declaration.jpg" icon="imageIcon" url="source/assets/images/declaration.jpg.html"/>
+				<node label="dog.jpg" icon="imageIcon" url="source/assets/images/dog.jpg.html"/>
+				<node label="fight.jpg" icon="imageIcon" url="source/assets/images/fight.jpg.html"/>
+				<node label="forYou.jpg" icon="imageIcon" url="source/assets/images/forYou.jpg.html"/>
+				<node label="lsd.jpg" icon="imageIcon" url="source/assets/images/lsd.jpg.html"/>
+				<node label="tubby.jpg" icon="imageIcon" url="source/assets/images/tubby.jpg.html"/>
+			</node>
+			<node label="movies.xml" url="source/assets/movies.xml.txt"/>
+			<node label="spinner.swf" icon="swfIcon" url="source/assets/spinner.swf"/>
+		</node>
+		<node label="com.rbm.displayObjects.CommentPanel" icon="packageIcon" expanded="true">
+			<node label="AddComments.mxml" icon="mxmlIcon" url="source/com/rbm/displayObjects/CommentPanel/AddComments.mxml.html"/>
+			<node label="AuthorContact.mxml" icon="mxmlIcon" url="source/com/rbm/displayObjects/CommentPanel/AuthorContact.mxml.html"/>
+			<node label="UserOptions.mxml" icon="mxmlIcon" url="source/com/rbm/displayObjects/CommentPanel/UserOptions.mxml.html"/>
+			<node label="ViewComments.mxml" icon="mxmlIcon" url="source/com/rbm/displayObjects/CommentPanel/ViewComments.mxml.html"/>
+		</node>
+		<node label="com.rbm.displayObjects.CommentPanel.DataRendering" icon="packageIcon" expanded="true">
+			<node label="DateRenderer.mxml" icon="mxmlIcon" url="source/com/rbm/displayObjects/CommentPanel/DataRendering/DateRenderer.mxml.html"/>
+			<node label="StarRenderer.mxml" icon="mxmlIcon" url="source/com/rbm/displayObjects/CommentPanel/DataRendering/StarRenderer.mxml.html"/>
+		</node>
+		<node label="com.rbm.displayObjects.features" icon="packageIcon" expanded="true">
+			<node label="addAPopUp.mxml" icon="mxmlIcon" url="source/com/rbm/displayObjects/features/addAPopUp.mxml.html"/>
+		</node>
+		<node label="com.rbm.displayObjects.Television" icon="packageIcon" expanded="true">
+			<node label="ColorController.mxml" icon="mxmlIcon" url="source/com/rbm/displayObjects/Television/ColorController.mxml.html"/>
+			<node label="VideoControllerBar.mxml" icon="mxmlIcon" url="source/com/rbm/displayObjects/Television/VideoControllerBar.mxml.html"/>
+			<node label="VideoPlayer.mxml" icon="mxmlIcon" url="source/com/rbm/displayObjects/Television/VideoPlayer.mxml.html"/>
+		</node>
+		<node label="com.rbm.displayObjects.Videos" icon="packageIcon" expanded="true">
+			<node label="MinMaxBar.mxml" icon="mxmlIcon" url="source/com/rbm/displayObjects/Videos/MinMaxBar.mxml.html"/>
+			<node label="PickAVideo.mxml" icon="mxmlIcon" url="source/com/rbm/displayObjects/Videos/PickAVideo.mxml.html"/>
+		</node>
+		<node label="com.rbm.displayObjects.VideoSelectionDisplay" icon="packageIcon" expanded="true">
+			<node label="CategoryDisplayContainer.mxml" icon="mxmlIcon" url="source/com/rbm/displayObjects/VideoSelectionDisplay/CategoryDisplayContainer.mxml.html"/>
+			<node label="MovieDisplayContainer.mxml" icon="mxmlIcon" url="source/com/rbm/displayObjects/VideoSelectionDisplay/MovieDisplayContainer.mxml.html"/>
+		</node>
+		<node label="com.rbm.managers" icon="packageIcon" expanded="true">
+			<node label="CaptionLoader.mxml" icon="mxmlIcon" url="source/com/rbm/managers/CaptionLoader.mxml.html"/>
+			<node label="CategorizedMovieManager.mxml" icon="mxmlIcon" url="source/com/rbm/managers/CategorizedMovieManager.mxml.html"/>
+			<node label="PopUpManager.mxml" icon="mxmlIcon" url="source/com/rbm/managers/PopUpManager.mxml.html"/>
+		</node>
+		<node label="com.rbm.valueObjects" icon="packageIcon" expanded="true">
+			<node label="Category.as" icon="actionScriptIcon" url="source/com/rbm/valueObjects/Category.as.html"/>
+			<node label="MovieItem.as" icon="actionScriptIcon" url="source/com/rbm/valueObjects/MovieItem.as.html"/>
+		</node>
+		<node label="com.rbm.valueObjects.Color" icon="packageIcon" expanded="true">
+			<node label="Color.as" icon="actionScriptIcon" url="source/com/rbm/valueObjects/Color/Color.as.html"/>
+		</node>
+		<node label="css">
+		</node>
+		<node label="events" icon="packageIcon" expanded="true">
+			<node label="CaptionEvent.as" icon="actionScriptIcon" url="source/events/CaptionEvent.as.html"/>
+			<node label="ColorChangeEvent.as" icon="actionScriptIcon" url="source/events/ColorChangeEvent.as.html"/>
+			<node label="CommentEvent.as" icon="actionScriptIcon" url="source/events/CommentEvent.as.html"/>
+			<node label="DataLoadedEvent.as" icon="actionScriptIcon" url="source/events/DataLoadedEvent.as.html"/>
+			<node label="MovieManagerEvent.as" icon="actionScriptIcon" url="source/events/MovieManagerEvent.as.html"/>
+			<node label="MovieSelectedEvent.as" icon="actionScriptIcon" url="source/events/MovieSelectedEvent.as.html"/>
+			<node label="VideoPlayerEvent.as" icon="actionScriptIcon" url="source/events/VideoPlayerEvent.as.html"/>
+		</node>
+		<node label="styles">
+			<node label="styles.css" icon="cssIcon" url="source/styles/styles.css.html"/>
+		</node>
+		<node selected="true" label="iTV.mxml" icon="mxmlAppIcon" url="source/iTV.mxml.html"/>
+		<node label="readMe.txt" url="source/readMe.txt"/>
+	</nodes>
+	<zipfile label="Download source (ZIP, 161K)" url="iTV.zip"/>
+	<sdklink label="Download Flex 2 SDK" url="http://www.adobe.com/go/flex2_sdk"/>
+</index>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" height="100%">
+<mx:Metadata>
+	[Event(name="commentSubmitted" , type="events.CommentEvent")]
+</mx:Metadata>
+	<mx:Script>
+		<![CDATA[
+			import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.controls.Alert;
+			import flash.events.TextEvent;
+			import events.CommentEvent;
+			import mx.rpc.soap.WebService;
+			
+			[Bindable]
+			public var videoID:Number;
+			
+			[Bindable]
+			public var subjectName:String;
+			
+			private function meClicked(event:Event):void{
+				var o:Object = new Object;
+				o.name = String(yname.text);
+				o.comment = String(comment.text);
+				o.videoID = Number(videoID);
+				trace('i am id' + videoID);
+				o.stars = Number(5);
+				this.videoID = Number(videoID);
+				//trace(comment.text);
+				
+				var ws:WebService = new WebService();
+				ws.wsdl = "http://localhost:8500/iTV/comment.cfc?wsdl";
+				ws.loadWSDL();
+				ws.addComment(videoID ,3, comment.text , 4);
+				ws.addEventListener("result",imGood);
+				ws.addEventListener("fault",imBad);
+				
+				//comments.addComment.send();
+				var e:CommentEvent = new CommentEvent(o,"commentSubmitted");
+				this.dispatchEvent(e);
+			}
+			
+			public function imGood(event:mx.rpc.events.ResultEvent):void{
+				trace(event.result.toString());
+			}
+			
+			public function imBad(event:mx.rpc.events.FaultEvent):void{
+				trace(event.toString());
+			}
+		]]>
+	</mx:Script>
+	<mx:StringValidator id="userNameValidator" source="{yname}" property="text" />
+	<mx:StringValidator id="commentValidator" source="{comment}" property="text" />
+	<mx:EmailValidator id="eMailValidator" source="{email}" property="text" />
+	
+	
+	<mx:Label text="{subjectName}" />
+	<mx:Form>
+		<mx:FormHeading label="Add A Comment" />
+		<mx:FormItem label="Your Name" required="true">
+			<mx:TextInput id="yname"  />
+		</mx:FormItem>
+		<mx:FormItem label="Your Comment" required="true">
+			<mx:TextArea id="comment"  />
+		</mx:FormItem>
+		<mx:FormItem label="Your Email (will not be shared)" required="true">
+			<mx:TextInput id="email"  />
+		</mx:FormItem>
+		<mx:Button label="click me" click="meClicked(event)" />
+	</mx:Form>
+</mx:Canvas>

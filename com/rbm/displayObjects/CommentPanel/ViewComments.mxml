@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml">
+<mx:Script>
+	<![CDATA[
+		import mx.controls.Alert;
+		import mx.rpc.events.ResultEvent;
+		import mx.collections.ArrayCollection;
+		
+		[Bindable]
+		public var description:String;
+		
+		[Bindable]
+		public var userComments:Object;
+		
+		[Bindable]
+		public var videoID:Number;
+	
+		public function getVideoComments(id:Number):void{
+			this.videoID = id;
+			comments.getVideoComments.send()
+		}
+		
+	
+		public function getVideoCommentResults(event:ResultEvent):void{
+			var result:ArrayCollection = (event.result as ArrayCollection);
+			userComments = event.result;
+		}
+		
+	]]>
+</mx:Script>
+	<mx:WebService
+		id="comments"
+		wsdl="http://10.2.1.65:8500/iTV/comment.cfc?wsdl"
+		fault="Alert.show('Please Select A Video')"
+		>
+		<mx:operation name="getVideoComments" result="getVideoCommentResults(event)">
+			<mx:request xmlns="">
+				<vidID>
+					{videoID}
+				</vidID>
+			</mx:request>
+		</mx:operation>
+		
+	</mx:WebService>
+	<mx:Label text="{description}" />
+	<mx:DataGrid width="100%" height="100%" id="commentGrid" dataProvider="{userComments}" >
+	<mx:columns>
+		<mx:DataGridColumn dataField="DATE" headerText="date" itemRenderer="com.rbm.displayObjects.CommentPanel.DateRenderer" width="150"  />
+		<mx:DataGridColumn dataField="COMMENT" headerText="comment" />
+		<mx:DataGridColumn dataField="RATING" headerText="rating" sortable="false" itemRenderer="com.rbm.displayObjects.CommentPanel.StarRenderer" width="90"/>
+	</mx:columns>
+	</mx:DataGrid>
+	<mx:Button click="comments.getVideoComments.send()" label='click' />
+</mx:VBox>

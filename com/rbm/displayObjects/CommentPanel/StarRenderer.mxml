@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"  creationComplete="init()">
+	<mx:Script>
+		<![CDATA[
+			[Bindable]
+			public var source:String;
+			[Bindable]
+			private var sourceString:String;
+			
+			private function init():void{
+				if(!data){
+					sourceString = 'assets/images/stars/0star.gif';
+				}
+				else{
+					sourceString = 'assets/images/stars/'+data.RATING+'star.gif';
+					//trace('i am rating' + data.RATING);
+				}
+				
+			}
+		]]>
+	</mx:Script>
+	<mx:Image source="{sourceString}" />
+	
+</mx:HBox>

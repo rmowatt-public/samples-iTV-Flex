@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:UIComponent xmlns:mx="http://www.adobe.com/2006/mxml" creationComplete="init()">
+<mx:Metadata>
+	[Event(name="dataReady",type="events.MovieManagerEvent")]
+	[Event(name="dataUpdated",type="events.MovieManagerEvent")]
+</mx:Metadata>
+	<mx:Script>
+		<![CDATA[
+			import mx.rpc.events.ResultEvent;
+			import events.MovieManagerEvent;
+			import com.rbm.valueObjects.Category;
+			import com.rbm.valueObjects.MovieItem;
+			import com.rbm.displayObjects.VideoSelection.MovieDisplayContainer;
+			import events.DataLoadedEvent;
+			import mx.controls.Alert;
+			
+			[Bindable]
+			public var myMovie:MovieItem;
+			
+			[Bindable]
+			public var myCategory:Category;
+			
+			[Bindable]
+			public var targetURL:String;
+			
+			
+			//private var categorizedMovies:Object = new Object();
+			public var mCats:Array = new Array();
+			public var mMovies:Array = new Array();
+			public var categorizedMovies:Array = new Array();
+			private var rawData:XML;
+			private var eventType:String ='dataReady';
+			
+				private function init():void{
+					movieInventory.getAllMovies.send();
+				}
+				
+				public function refreshData():void{
+					this.eventType = 'dataUpdated';
+					this.init();
+				}
+				
+				public function requestCategories():Array{
+					return mCats;
+				}
+				
+				public function requestMovies():Array{
+					return mMovies;
+				}
+				
+				public function requestCategorizedMovies():Array{
+					return categorizedMovies;
+				}
+				
+				private function makeMovies(event:ResultEvent):void{
+					var myArray:Array = event.result as Array;
+						for each(var m:Object in myArray){
+							myMovie = new MovieItem(m.MOVIEID , m.CATEGORYID , m.MOVIENAME , m.MOVIEPATH , m.MOVIEDESCRIPTION, m.TOTALPLAYS, m.TEASERIMAGE);
+							var vs:MovieDisplayContainer= new MovieDisplayContainer();
+							vs.label = m.MOVIENAME;
+							vs.myItem = myMovie;
+							mMovies[m.MOVIEID] = vs;
+						}
+						movieInventory.getAllCategories.send();
+				}
+				
+				private function makeCats(event:ResultEvent):void{
+					var myCats:Array = event.result as Array;
+					for each(var m:Object in myCats){
+						myCategory = new Category(m.ID,m.CATNAME,m.CATDESCRIPTION,m.VISIBLE,m.ASSOCCAT);
+						mCats[m.ID]=myCategory;
+					}
+					makeCategorizedMovies();
+				}
+				
+				private function makeCategorizedMovies():void{
+					for each(var c:Category in mCats){
+						for each (var m:MovieDisplayContainer in mMovies){
+							if (m.myItem.categoryID == c.catID){
+									c.addToCategory(m);
+							}
+						}
+						categorizedMovies.push(c);
+					}
+						
+						sendEvent();
+				}
+				
+				private function sendEvent():void{
+					var o:Object = new Object;
+						o.categoryData = this.mCats;
+						o.movieData = this.mMovies;
+						o.categorizedMovieData = this.categorizedMovies;
+						
+						var e:Event = new MovieManagerEvent(o , this.eventType);
+						this.dispatchEvent(e);
+						this.eventType = 'dataReady';
+				}
+		]]>
+	</mx:Script>
+		<!--<mx:HTTPService id="movieCategories" url="http://localhost/movieCats.xml" result="makeMovies(event)" resultFormat="e4x"/>-->
+		<!--<mx:HTTPService id="movieInventory" url="{targetURL}" result="makeMovies(event)" resultFormat="e4x"/>-->
+		<mx:WebService
+			id="movieInventory"
+			wsdl="http://draftjennabush.com/iTV/movies.cfc?wsdl"
+			fault="Alert.show(event.fault.faultString)"
+		>
+				<mx:operation name="getAllMovies" result="makeMovies(event)" />
+				<mx:operation name="getAllCategories" result="makeCats(event)" />
+	</mx:WebService>
+</mx:UIComponent>

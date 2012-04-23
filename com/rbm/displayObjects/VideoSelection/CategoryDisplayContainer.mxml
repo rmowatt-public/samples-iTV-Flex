@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" borderStyle="solid" borderThickness="1" themeColor="#000000" borderColor="#000000" alpha="0.78">
+	<mx:Script>
+		<![CDATA[
+			import com.rbm.valueObjects.Category;
+			[Bindable]
+			public var category:Category;
+		]]>
+	</mx:Script>
+	<mx:Label text="  |--> {category.catDescription}" /><mx:Spacer width="100%" /><mx:Button label="view all" />
+</mx:HBox>

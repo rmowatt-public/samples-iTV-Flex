@@ -1,0 +1,95 @@
+<!-- saved from url=(0014)about:internet -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>PickAVideo.mxml</title>
+<link rel="stylesheet" type="text/css" href="../../../../../SourceStyles.css"/>
+</head>
+
+<body><pre><span class="mxmlCdata">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="mxmlComponent">&lt;mx:Panel</span> xmlns:mx=&quot;<span class="mxmlString">http://www.adobe.com/2006/mxml</span>&quot; layout=&quot;<span class="mxmlString">horizontal</span>&quot; xmlns:c=&quot;<span class="mxmlString">com.rbm.displayObjects.CommentPanel.*</span>&quot; 
+            xmlns:vs=&quot;<span class="mxmlString">com.rbm.displayObjects.VideoSelection.*</span>&quot; xmlns:v=&quot;<span class="mxmlString">com.rbm.displayObjects.Videos.*</span>&quot; 
+            xmlns:manager=&quot;<span class="mxmlString">com.rbm.magers.*</span>&quot; title=&quot;<span class="mxmlString">Other Videos</span>&quot;  xmlns:managers=&quot;<span class="mxmlString">com.rbm.managers.*</span>&quot;
+            styleName=&quot;<span class="mxmlString">PickAVideo</span>&quot;
+            <span class="mxmlComponent">&gt;</span>
+    <span class="mxmlTag">&lt;mx:Script&gt;</span>
+        <span class="asOperator">&lt;!</span><span class="asBracket">[</span>CDATA<span class="asBracket">[</span>
+            <span class="asReserved">import</span> mx.controls.Text;
+            <span class="asReserved">import</span> mx.containers.Canvas;
+            <span class="asReserved">import</span> mx.containers.VBox;
+            <span class="asReserved">import</span> mx.controls.Alert;
+            <span class="asReserved">import</span> mx.controls.Button;
+            <span class="asReserved">import</span> com.rbm.displayObjects.VideoSelectionDisplay.<span class="asOperator">*</span>;
+            <span class="asReserved">import</span> com.rbm.valueObjects.<span class="asOperator">*</span>;
+            <span class="asReserved">import</span> mx.collections.ArrayCollection;
+            <span class="asReserved">import</span> mx.rpc.events.ResultEvent;
+            <span class="asReserved">import</span> com.rbm.displayObjects.Videos.MinMaxBar;
+            <span class="asReserved">import</span> com.rbm.valueObjects.Category;
+            <span class="asReserved">import</span> events.MovieManagerEvent;
+            
+            
+            <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+            <span class="asReserved">public</span> <span class="asVar">var</span> requestURL<span class="asOperator">:</span>String;
+            
+            
+            <span class="asComment">// vars and functions to control panel size //
+</span>            <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+            <span class="asReserved">public</span> <span class="asVar">var</span> but<span class="asOperator">:</span>MinMaxBar <span class="asOperator">=</span> <span class="asReserved">new</span> MinMaxBar<span class="asBracket">()</span>;
+            
+            <span class="asReserved">protected</span> <span class="asReserved">override</span> <span class="asFunction">function</span> createChildren<span class="asBracket">()</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span><span class="asComment">//allows you to add components inside chrome
+</span>                but.width<span class="asOperator">=</span>100;
+                but.height <span class="asOperator">=</span> 25;
+                but.id <span class="asOperator">=</span> <span class="asString">&quot;but&quot;</span>;
+                MinMaxBar<span class="asBracket">(</span>but<span class="asBracket">)</span>.addEventListener<span class="asBracket">(</span><span class="asString">&quot;minimize&quot;</span> , minimizePanel<span class="asBracket">)</span>;
+                MinMaxBar<span class="asBracket">(</span>but<span class="asBracket">)</span>.addEventListener<span class="asBracket">(</span><span class="asString">&quot;maximize&quot;</span> , maximizePanel<span class="asBracket">)</span>;
+                <span class="asReserved">this</span>.rawChildren.addChild<span class="asBracket">(</span>but<span class="asBracket">)</span>;
+                rawChildren.setChildIndex<span class="asBracket">(</span>but,1<span class="asBracket">)</span>;
+                <span class="asReserved">super</span>.createChildren<span class="asBracket">()</span>;
+            <span class="asBracket">}</span>
+            
+            
+            <span class="asReserved">public</span> <span class="asFunction">function</span> minimizePanel<span class="asBracket">(</span>e<span class="asOperator">:</span>Event<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+                mx.controls.Alert.show<span class="asBracket">(</span><span class="asString">&apos;minimize&apos;</span><span class="asBracket">)</span>;
+            <span class="asBracket">}</span>
+            <span class="asReserved">public</span> <span class="asFunction">function</span> maximizePanel<span class="asBracket">(</span>e<span class="asOperator">:</span>Event<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+                mx.controls.Alert.show<span class="asBracket">(</span><span class="asString">&apos;maximize&apos;</span><span class="asBracket">)</span>;
+                
+            <span class="asBracket">}</span>
+
+            <span class="asReserved">protected</span> <span class="asReserved">override</span> <span class="asFunction">function</span> updateDisplayList<span class="asBracket">(</span>unscaledWidth<span class="asOperator">:</span>Number, unscaledHeight<span class="asOperator">:</span>Number<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+                <span class="asReserved">super</span>.updateDisplayList<span class="asBracket">(</span>unscaledWidth,unscaledHeight<span class="asBracket">)</span>;
+                <span class="asVar">var</span> t<span class="asOperator">:</span>Number <span class="asOperator">=</span> 5;
+                <span class="asVar">var</span> r<span class="asOperator">:</span>Number <span class="asOperator">=</span> 10;
+                <span class="asVar">var</span> x<span class="asOperator">:</span>Number <span class="asOperator">=</span> unscaledWidth <span class="asOperator">-</span> <span class="asReserved">this</span>.but.width <span class="asOperator">-</span> r ;
+                but.move<span class="asBracket">(</span>x,t<span class="asBracket">)</span>;
+                but.addEventListener<span class="asBracket">(</span><span class="asString">&quot;itemClick&quot;</span> , minimizePanel<span class="asBracket">)</span>;
+            <span class="asBracket">}</span>
+            <span class="asComment">// vars and functions to control panel size //
+</span>            
+            <span class="asReserved">private</span> <span class="asFunction">function</span> buildSelection<span class="asBracket">(</span>event<span class="asOperator">:</span>MovieManagerEvent<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span><span class="asComment">//loop that creates the visual layout
+</span>                <span class="asVar">var</span> categoryArray<span class="asOperator">:</span>Array <span class="asOperator">=</span> event.manager.categorizedMovieData;<span class="asComment">//get the mivies as an associative array {category[movie:info]}
+</span>                <span class="asReserved">for</span> <span class="asReserved">each</span><span class="asBracket">(</span><span class="asVar">var</span> c<span class="asOperator">:</span>Category <span class="asReserved">in</span> categoryArray<span class="asBracket">){</span>
+                    <span class="asReserved">if</span><span class="asBracket">(</span>c.subCatArray.length <span class="asOperator">&gt;</span>0<span class="asBracket">){</span><span class="asComment">//if category has movies create an accordian fold
+</span>                        <span class="asVar">var</span> container<span class="asOperator">:</span>VBox <span class="asOperator">=</span> <span class="asReserved">new</span> VBox<span class="asBracket">()</span>;
+                            container.width <span class="asOperator">=</span> mAccordion.width;
+                            container.height <span class="asOperator">=</span> mAccordion.height;
+                        <span class="asVar">var</span> can<span class="asOperator">:</span>CategoryDisplayContainer <span class="asOperator">=</span> <span class="asReserved">new</span> CategoryDisplayContainer<span class="asBracket">()</span>;<span class="asComment">//create category header
+</span>                            can.styleName <span class="asOperator">=</span> <span class="asString">&quot;catDescription&quot;</span>;
+                            can.category <span class="asOperator">=</span> c;
+                            container.addChild<span class="asBracket">(</span>can<span class="asBracket">)</span>;
+                        <span class="asReserved">for</span> <span class="asReserved">each</span><span class="asBracket">(</span><span class="asVar">var</span> m<span class="asOperator">:</span>MovieDisplayContainer <span class="asReserved">in</span> c.subCatArray<span class="asBracket">){</span><span class="asComment">//loop thru movies and add Display container to accordian cat
+</span>                            container.addChild<span class="asBracket">(</span>m<span class="asBracket">)</span>;
+                        <span class="asBracket">}</span>
+                        container.label <span class="asOperator">=</span> c.catName;
+                        mAccordion.addChild<span class="asBracket">(</span>container<span class="asBracket">)</span>;
+                    <span class="asBracket">}</span>
+                <span class="asBracket">}</span>
+            <span class="asBracket">}</span>
+        <span class="asBracket">]]</span><span class="asOperator">&gt;</span>
+    <span class="mxmlTag">&lt;/mx:Script&gt;</span>
+    
+    <span class="mxmlComponent">&lt;mx:Accordion</span> selectedIndex=&quot;<span class="mxmlString">3</span>&quot; id=&quot;<span class="mxmlString">mAccordion</span>&quot; height=&quot;<span class="mxmlString">100%</span>&quot; width=&quot;<span class="mxmlString">100%</span>&quot; <span class="mxmlComponent">/&gt;</span>
+    <span class="mxmlComponent">&lt;managers:CategorizedMovieManager</span> id=&quot;<span class="mxmlString">manager</span>&quot; targetURL=&quot;<span class="mxmlString">{</span>requestURL<span class="mxmlString">}</span>&quot; dataReady=&quot;buildSelection<span class="asBracket">(</span>event<span class="asBracket">)</span>&quot; dataUpdated=&quot;buildSelection<span class="asBracket">(</span>event<span class="asBracket">)</span>&quot; <span class="mxmlComponent">/&gt;</span>
+<span class="mxmlComponent">&lt;/mx:Panel&gt;</span></pre></body>
+</html>

@@ -1,0 +1,77 @@
+<!-- saved from url=(0014)about:internet -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>UserOptions.mxml</title>
+<link rel="stylesheet" type="text/css" href="../../../../../SourceStyles.css"/>
+</head>
+
+<body><pre><span class="mxmlCdata">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+
+<span class="mxmlComment">&lt;!--</span><span class="mxmlComment"> UserOptions Component Is a parent/controller component
+     whose children are a collection of components 
+     related to choices available to the user. 
+     This panel basically keeps them in synch w/ each other </span><span class="mxmlComment">--&gt;</span>
+
+<span class="mxmlComponent">&lt;mx:ViewStack</span> xmlns:mx=&quot;<span class="mxmlString">http://www.adobe.com/2006/mxml</span>&quot; xmlns:d=&quot;<span class="mxmlString">com.rbm.displayObjects.CommentPanel.*</span>&quot; height=&quot;<span class="mxmlString">100%</span>&quot;<span class="mxmlComponent">&gt;</span>
+<span class="mxmlTag">&lt;mx:Script&gt;</span>
+    <span class="asOperator">&lt;!</span><span class="asBracket">[</span>CDATA<span class="asBracket">[</span>
+        <span class="asReserved">import</span> mx.controls.Alert;
+        <span class="asReserved">import</span> mx.collections.ArrayCollection;
+        
+        <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+        <span class="asReserved">public</span> <span class="asVar">var</span> videoID<span class="asOperator">:</span>Number;<span class="asComment">//the id of the currently selected video
+</span>        
+        <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+        <span class="asReserved">public</span> <span class="asVar">var</span> currentTitle<span class="asOperator">:</span>String;<span class="asComment">//the title of the currently selected video
+</span>        
+        <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+        <span class="asReserved">public</span> <span class="asVar">var</span> movieComments<span class="asOperator">:</span>ArrayCollection;
+        
+        <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+        <span class="asReserved">public</span> <span class="asVar">var</span> requestURL<span class="asOperator">:</span>String;
+        
+         <span class="asBracket">[</span>Embed <span class="asBracket">(</span>source <span class="asOperator">=</span> <span class="asString">&apos;/assets/images/stars/1star.gif&apos;</span><span class="asBracket">)]</span>
+          <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+          <span class="asReserved">public</span> <span class="asVar">var</span> image_ico <span class="asOperator">:</span> Class;
+    
+        <span class="asReserved">public</span> <span class="asFunction">function</span> triggerUpdates<span class="asBracket">(</span>id<span class="asOperator">:</span>Number<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span><span class="asComment">//updates comments
+</span>            viewComments.getVideoComments<span class="asBracket">(</span>id<span class="asBracket">)</span>;<span class="asComment">//update comments
+</span>            addComments.videoID <span class="asOperator">=</span> id;
+            myNav.selectedIndex <span class="asOperator">=</span> 0;<span class="asComment">//view comments
+</span>        <span class="asBracket">}</span>
+        
+        
+        
+        <span class="asReserved">public</span> <span class="asFunction">function</span> addATab<span class="asBracket">(</span>id<span class="asOperator">:</span>Number,desc<span class="asOperator">:</span>String<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+            <span class="asVar">var</span> vc<span class="asOperator">:</span>ViewComments <span class="asOperator">=</span> <span class="asReserved">new</span> ViewComments<span class="asBracket">()</span>;
+            vc.description <span class="asOperator">=</span> desc;
+            vc.label <span class="asOperator">=</span> desc;
+            vc.dataSource <span class="asOperator">=</span> requestURL;
+            vc.getVideoComments<span class="asBracket">(</span>id<span class="asBracket">)</span>;
+            vc.toolTip <span class="asOperator">=</span> <span class="asString">&quot;Double Click To Close&quot;</span>;
+            <span class="asComment">//image_ico.addEventListener
+</span>            vc.icon <span class="asOperator">=</span> image_ico;
+            <span class="asTrace">trace</span><span class="asBracket">(</span>Object<span class="asBracket">(</span>image_ico<span class="asBracket">)</span>.width<span class="asBracket">)</span>;
+            myNav.addChild<span class="asBracket">(</span>vc<span class="asBracket">)</span>;
+            myNav.selectedIndex <span class="asOperator">=</span> myNav.numChildren <span class="asOperator">-</span>1;
+        <span class="asBracket">}</span>
+        
+            <span class="asReserved">public</span> <span class="asFunction">function</span> meClicked<span class="asBracket">(</span>e<span class="asOperator">:</span>MouseEvent<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+            <span class="asReserved">if</span><span class="asBracket">(</span>TabNavigator<span class="asBracket">(</span>e.currentTarget<span class="asBracket">)</span>.selectedIndex <span class="asOperator">&gt;</span> 2<span class="asBracket">){</span>
+            <span class="asVar">var</span> tab<span class="asOperator">:</span>ViewComments <span class="asOperator">=</span> ViewComments<span class="asBracket">(</span>TabNavigator<span class="asBracket">(</span>e.currentTarget<span class="asBracket">)</span>.selectedChild<span class="asBracket">)</span>;
+            myNav.removeChild<span class="asBracket">(</span>tab<span class="asBracket">)</span>;
+            <span class="asBracket">}</span>
+        <span class="asBracket">}</span>
+        
+    <span class="asBracket">]]</span><span class="asOperator">&gt;</span>
+<span class="mxmlTag">&lt;/mx:Script&gt;</span>
+<span class="mxmlComponent">&lt;mx:TabNavigator</span> id=&quot;<span class="mxmlString">myNav</span>&quot; height=&quot;<span class="mxmlString">100%</span>&quot; width=&quot;<span class="mxmlString">100%</span>&quot; doubleClickEnabled=&quot;<span class="mxmlString">true</span>&quot; doubleClick=&quot;meClicked<span class="asBracket">(</span>event<span class="asBracket">)</span>&quot; <span class="mxmlComponent">&gt;</span>
+<span class="mxmlComment">&lt;!--</span><span class="mxmlComment"> Children </span><span class="mxmlComment">--&gt;</span>
+    <span class="mxmlComponent">&lt;d:ViewComments</span> width=&quot;<span class="mxmlString">100%</span>&quot; id=&quot;<span class="mxmlString">viewComments</span>&quot; label=&quot;<span class="mxmlString">view comments</span>&quot; description=&quot;<span class="mxmlString">{</span>currentTitle<span class="mxmlString">}</span>&quot; userComments=&quot;<span class="mxmlString">{</span>movieComments<span class="mxmlString">}</span>&quot; videoID=&quot;<span class="mxmlString">{</span>videoID<span class="mxmlString">}</span>&quot; dataSource=&quot;<span class="mxmlString">{</span>requestURL<span class="mxmlString">}</span>&quot;<span class="mxmlComponent">/&gt;</span>
+    <span class="mxmlComponent">&lt;d:AddComments</span> id=&quot;<span class="mxmlString">addComments</span>&quot; width=&quot;<span class="mxmlString">100%</span>&quot; height=&quot;<span class="mxmlString">100%</span>&quot; label=&quot;<span class="mxmlString">add comment</span>&quot; subjectName=&quot;<span class="mxmlString">{</span>currentTitle<span class="mxmlString">}</span>&quot; commentSubmitted=&quot;<span class="asReserved">this</span>.triggerUpdates<span class="asBracket">(</span>event.target.videoID<span class="asBracket">)</span>&quot;  dataSource=&quot;<span class="mxmlString">{</span>requestURL<span class="mxmlString">}</span>&quot; <span class="mxmlComponent">/&gt;</span>
+    <span class="mxmlComponent">&lt;d:AuthorContact</span> width=&quot;<span class="mxmlString">100%</span>&quot;  label=&quot;<span class="mxmlString">contact author</span>&quot;<span class="mxmlComponent">/&gt;</span>
+<span class="mxmlComponent">&lt;/mx:TabNavigator&gt;</span>
+<span class="mxmlComponent">&lt;/mx:ViewStack&gt;</span></pre></body>
+</html>

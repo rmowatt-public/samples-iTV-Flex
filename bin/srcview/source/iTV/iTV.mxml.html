@@ -1,0 +1,49 @@
+<!-- saved from url=(0014)about:internet -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>iTV.mxml</title>
+<link rel="stylesheet" type="text/css" href="../../SourceStyles.css"/>
+</head>
+
+<body><pre><span class="mxmlCdata">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="mxmlComponent">&lt;mx:Application</span> xmlns:mx=&quot;<span class="mxmlString">http://www.adobe.com/2006/mxml</span>&quot; xmlns:c=&quot;<span class="mxmlString">com.rbm.displayObjects.CommentPanel.*</span>&quot; xmlns:tv=&quot;<span class="mxmlString">com.rbm.displayObjects.Television.*</span>&quot; xmlns:vid=&quot;<span class="mxmlString">com.rbm.displayObjects.Videos.*</span>&quot;<span class="mxmlComponent">&gt;</span>
+    <span class="mxmlComponent">&lt;mx:states&gt;</span>
+        <span class="mxmlComponent">&lt;mx:State</span> name=&quot;<span class="mxmlString">userComments</span>&quot;<span class="mxmlComponent">&gt;</span>
+            <span class="mxmlComponent">&lt;mx:SetProperty</span> target=&quot;<span class="mxmlString">{</span>hbox1<span class="mxmlString">}</span>&quot; name=&quot;<span class="mxmlString">height</span>&quot; value=&quot;<span class="mxmlString">25</span>&quot;<span class="mxmlComponent">/&gt;</span>
+            <span class="mxmlComponent">&lt;mx:SetProperty</span> target=&quot;<span class="mxmlString">{</span>commentpanel1<span class="mxmlString">}</span>&quot; name=&quot;<span class="mxmlString">height</span>&quot; value=&quot;<span class="mxmlString">400</span>&quot;<span class="mxmlComponent">/&gt;</span>
+        <span class="mxmlComponent">&lt;/mx:State&gt;</span>
+    <span class="mxmlComponent">&lt;/mx:states&gt;</span>
+<span class="mxmlTag">&lt;mx:Script&gt;</span>
+    <span class="asOperator">&lt;!</span><span class="asBracket">[</span>CDATA<span class="asBracket">[</span>
+        <span class="asReserved">import</span> mx.controls.Alert;
+
+        <span class="asReserved">private</span> <span class="asFunction">function</span> fieldState<span class="asBracket">()</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+            <span class="asReserved">if</span><span class="asBracket">(</span><span class="asReserved">this</span>.currentState <span class="asOperator">!=</span> <span class="asString">&apos;userComments&apos;</span><span class="asBracket">){</span><span class="asReserved">this</span>.currentState<span class="asOperator">=</span><span class="asString">&apos;userComments&apos;</span>;<span class="asBracket">}</span>
+            <span class="asReserved">else</span><span class="asBracket">{</span><span class="asReserved">this</span>.currentState <span class="asOperator">=</span> <span class="asString">&apos;&apos;</span>;<span class="asBracket">}</span>
+        <span class="asBracket">}</span>
+        
+        <span class="asReserved">private</span> <span class="asFunction">function</span> tellMe<span class="asBracket">(</span>what<span class="asOperator">:</span>String<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+        
+        <span class="asBracket">}</span>
+
+    <span class="asBracket">]]</span><span class="asOperator">&gt;</span>
+<span class="mxmlTag">&lt;/mx:Script&gt;</span>
+<span class="mxmlTag">&lt;mx:Model</span> id=&quot;<span class="mxmlString">movieInventory</span>&quot; source=&quot;<span class="mxmlString">assets/movies.xml</span>&quot; <span class="mxmlTag">/&gt;</span>
+    <span class="mxmlComponent">&lt;mx:ApplicationControlBar</span> width=&quot;<span class="mxmlString">100%</span>&quot; dock=&quot;<span class="mxmlString">true</span>&quot;<span class="mxmlComponent">&gt;</span>
+    <span class="mxmlComponent">&lt;mx:Spacer</span> width=&quot;<span class="mxmlString">100%</span>&quot; <span class="mxmlComponent">/&gt;</span>
+        <span class="mxmlComponent">&lt;mx:Label</span> text=&quot;<span class="mxmlString">search</span>&quot; <span class="mxmlComponent">/&gt;</span>
+        <span class="mxmlComponent">&lt;mx:TextInput</span> id=&quot;<span class="mxmlString">search</span>&quot; <span class="mxmlComponent">/&gt;</span>
+        <span class="mxmlComponent">&lt;mx:Button</span> label=&apos;<span class="mxmlString">submit</span>&apos; <span class="mxmlComponent">/&gt;</span>
+    <span class="mxmlComponent">&lt;/mx:ApplicationControlBar&gt;</span>
+<span class="mxmlComponent">&lt;mx:Panel</span> title =&quot;<span class="mxmlString">i711.tv</span>&quot;<span class="mxmlComponent">&gt;</span>
+    <span class="mxmlComponent">&lt;mx:HBox</span> width=&quot;<span class="mxmlString">100%</span>&quot; height=&quot;<span class="mxmlString">100%</span>&quot; id=&quot;<span class="mxmlString">hbox1</span>&quot;<span class="mxmlComponent">&gt;</span>
+    <span class="mxmlComponent">&lt;tv:VideoPlayer</span>  id=&quot;<span class="mxmlString">vidFeed</span>&quot; play=&quot;tellMe<span class="asBracket">(</span><span class="asString">&apos;play&apos;</span><span class="asBracket">)</span>&quot; pause=&quot;tellMe<span class="asBracket">(</span><span class="asString">&apos;pause&apos;</span><span class="asBracket">)</span>&quot; stop=&quot;tellMe<span class="asBracket">(</span><span class="asString">&apos;stop&apos;</span><span class="asBracket">)</span>&quot; minHeight=&quot;<span class="mxmlString">200</span>&quot; minWidth=&quot;<span class="mxmlString">200</span>&quot; loaderMovie=&quot;<span class="mxmlString">rtmp://vcv52e58gh.rtmphost.com/testme/spinner00.flv</span>&quot; <span class="mxmlComponent">/&gt;</span>    
+    <span class="mxmlComponent">&lt;vid:PickAVideo</span>  height=&quot;<span class="mxmlString">{</span>vidFeed.height<span class="mxmlString">}</span>&quot; width=&quot;<span class="mxmlString">100%</span>&quot; requestURL=&quot;<span class="mxmlString">http://localhost:8080/movies.xml</span>&quot; <span class="mxmlComponent">/&gt;</span>
+    <span class="mxmlComponent">&lt;/mx:HBox&gt;</span>
+    <span class="mxmlComponent">&lt;c:CommentPanel</span> width=&quot;<span class="mxmlString">100%</span>&quot; height=&quot;<span class="mxmlString">100%</span>&quot; id=&quot;<span class="mxmlString">commentpanel1</span>&quot;<span class="mxmlComponent">/&gt;</span>
+<span class="mxmlComponent">&lt;/mx:Panel&gt;</span>
+<span class="mxmlComponent">&lt;mx:Button</span> label=&quot;<span class="mxmlString">switch states</span>&quot; click=&quot;fieldState<span class="asBracket">()</span>&quot; <span class="mxmlComponent">/&gt;</span>
+<span class="mxmlComponent">&lt;/mx:Application&gt;</span></pre></body>
+</html>

@@ -1,0 +1,30 @@
+<!-- saved from url=(0014)about:internet -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>UserOptions.mxml</title>
+<link rel="stylesheet" type="text/css" href="../../../../../SourceStyles.css"/>
+</head>
+
+<body><pre><span class="mxmlCdata">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="mxmlComponent">&lt;mx:ViewStack</span> xmlns:mx=&quot;<span class="mxmlString">http://www.adobe.com/2006/mxml</span>&quot; xmlns:d=&quot;<span class="mxmlString">com.rbm.displayObjects.CommentPanel.*</span>&quot; height=&quot;<span class="mxmlString">100%</span>&quot;<span class="mxmlComponent">&gt;</span>
+<span class="mxmlTag">&lt;mx:Script&gt;</span>
+    <span class="asOperator">&lt;!</span><span class="asBracket">[</span>CDATA<span class="asBracket">[</span>
+        <span class="asReserved">import</span> mx.controls.Alert;
+        <span class="asReserved">import</span> mx.collections.ArrayCollection;
+        
+        <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+        <span class="asReserved">public</span> <span class="asVar">var</span> currentTitle<span class="asOperator">:</span>String;
+        
+        <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+        <span class="asReserved">public</span> <span class="asVar">var</span> movieComments<span class="asOperator">:</span>ArrayCollection;
+    <span class="asBracket">]]</span><span class="asOperator">&gt;</span>
+<span class="mxmlTag">&lt;/mx:Script&gt;</span>
+<span class="mxmlComponent">&lt;mx:TabNavigator</span> id=&quot;<span class="mxmlString">myNav</span>&quot; height=&quot;<span class="mxmlString">100%</span>&quot; width=&quot;<span class="mxmlString">100%</span>&quot;<span class="mxmlComponent">&gt;</span>
+    <span class="mxmlComponent">&lt;d:ViewComments</span> width=&quot;<span class="mxmlString">100%</span>&quot; label=&quot;<span class="mxmlString">view comments</span>&quot; description=&quot;<span class="mxmlString">{</span>currentTitle<span class="mxmlString">}</span>&quot; userComments=&quot;<span class="mxmlString">{</span>movieComments<span class="mxmlString">}</span>&quot; <span class="mxmlComponent">/&gt;</span>
+    <span class="mxmlComponent">&lt;d:AddComments</span> width=&quot;<span class="mxmlString">100%</span>&quot; height=&quot;<span class="mxmlString">100%</span>&quot; label=&quot;<span class="mxmlString">add comment</span>&quot; commentSubmitted=&quot;Alert.show<span class="asBracket">(</span>String<span class="asBracket">(</span>event.text<span class="asBracket">))</span>&quot; <span class="mxmlComponent">/&gt;</span>
+    <span class="mxmlComponent">&lt;d:AuthorContact</span> width=&quot;<span class="mxmlString">100%</span>&quot;  label=&quot;<span class="mxmlString">contact author</span>&quot;<span class="mxmlComponent">/&gt;</span>
+<span class="mxmlComponent">&lt;/mx:TabNavigator&gt;</span>
+<span class="mxmlComponent">&lt;/mx:ViewStack&gt;</span></pre></body>
+</html>

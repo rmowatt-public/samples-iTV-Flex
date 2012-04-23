@@ -1,0 +1,78 @@
+<!-- saved from url=(0014)about:internet -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>VideoPlayer.mxml</title>
+<link rel="stylesheet" type="text/css" href="../../../../../SourceStyles.css"/>
+</head>
+
+<body><pre><span class="mxmlCdata">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="mxmlComponent">&lt;mx:Panel</span> xmlns:mx=&quot;<span class="mxmlString">http://www.adobe.com/2006/mxml</span>&quot; xmlns:tv=&quot;<span class="mxmlString">com.rbm.displayObjects.Television.*</span>&quot; layout=&quot;<span class="mxmlString">vertical</span>&quot; title=&quot;<span class="mxmlString">i711.TV</span>&quot; width=&quot;<span class="mxmlString">{</span>myVid.width <span class="asOperator">+</span> 22<span class="mxmlString">}</span>&quot; creationComplete=&quot;switchSource<span class="asBracket">(</span>loaderMovie<span class="asBracket">)</span>&quot;<span class="mxmlComponent">&gt;</span>
+<span class="mxmlTag">&lt;mx:Metadata&gt;</span>
+    <span class="mxmlCdata">[Event(name=&quot;play&quot;)]
+    [Event(name=&quot;stop&quot;)]
+    [Event(name=&quot;pause&quot;)]
+    [Event(name=&quot;movieSelected&quot;, type=&quot;events.MovieSelectedEvent&quot;)]
+</span><span class="mxmlTag">&lt;/mx:Metadata&gt;</span>
+<span class="mxmlTag">&lt;mx:Script&gt;</span>
+    <span class="asOperator">&lt;!</span><span class="asBracket">[</span>CDATA<span class="asBracket">[</span>
+        <span class="asReserved">import</span> flash.events.Event;
+        <span class="asReserved">import</span> mx.managers.DragManager;
+        <span class="asReserved">import</span> mx.events.DragEvent;
+        <span class="asReserved">import</span> mx.core.IUIComponent;
+        <span class="asReserved">import</span> com.rbm.valueObjects.MovieItem;
+        <span class="asReserved">import</span> events.MovieSelectedEvent;
+        
+        <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+        <span class="asReserved">public</span> <span class="asVar">var</span> loaderMovie<span class="asOperator">:</span>String;
+        
+        <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+        <span class="asReserved">private</span> <span class="asVar">var</span> movieSource<span class="asOperator">:</span>String;
+        
+        <span class="asReserved">private</span> <span class="asFunction">function</span> playMe<span class="asBracket">()</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+            <span class="asReserved">this</span>.myVid.play<span class="asBracket">()</span>;
+            <span class="asVar">var</span> o<span class="asOperator">:</span>Event <span class="asOperator">=</span> <span class="asReserved">new</span> Event<span class="asBracket">(</span><span class="asString">&apos;play&apos;</span><span class="asBracket">)</span>;
+            <span class="asReserved">this</span>.dispatchEvent<span class="asBracket">(</span>o<span class="asBracket">)</span>;
+            
+        <span class="asBracket">}</span>
+        <span class="asReserved">private</span> <span class="asFunction">function</span> stopMe<span class="asBracket">()</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+            <span class="asReserved">this</span>.myVid.stop<span class="asBracket">()</span>;
+            <span class="asVar">var</span> o<span class="asOperator">:</span>Event <span class="asOperator">=</span> <span class="asReserved">new</span> Event<span class="asBracket">(</span><span class="asString">&apos;stop&apos;</span><span class="asBracket">)</span>;
+            <span class="asReserved">this</span>.dispatchEvent<span class="asBracket">(</span>o<span class="asBracket">)</span>;
+        <span class="asBracket">}</span>
+        <span class="asReserved">private</span> <span class="asFunction">function</span> pauseMe<span class="asBracket">()</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+            <span class="asReserved">this</span>.myVid.pause<span class="asBracket">()</span>;
+            <span class="asVar">var</span> o<span class="asOperator">:</span>Event <span class="asOperator">=</span> <span class="asReserved">new</span> Event<span class="asBracket">(</span><span class="asString">&apos;pause&apos;</span><span class="asBracket">)</span>;
+            <span class="asReserved">this</span>.dispatchEvent<span class="asBracket">(</span>o<span class="asBracket">)</span>;
+        <span class="asBracket">}</span>
+        
+        <span class="asReserved">private</span> <span class="asFunction">function</span> doDragEnter<span class="asBracket">(</span>event<span class="asOperator">:</span>DragEvent , format<span class="asOperator">:</span>String<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+            <span class="asReserved">if</span><span class="asBracket">(</span>event.dragSource.hasFormat<span class="asBracket">(</span>format<span class="asBracket">)){</span>
+                DragManager.acceptDragDrop<span class="asBracket">(</span>IUIComponent<span class="asBracket">(</span>event.target<span class="asBracket">))</span>;
+            <span class="asBracket">}</span>
+        <span class="asBracket">}</span>
+        
+        <span class="asReserved">private</span> <span class="asFunction">function</span> doDragDrop<span class="asBracket">(</span>event<span class="asOperator">:</span>DragEvent, format<span class="asOperator">:</span>String<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+            <span class="asVar">var</span> myMovieData<span class="asOperator">:</span>MovieItem <span class="asOperator">=</span> MovieItem<span class="asBracket">(</span>event.dragSource.dataForFormat<span class="asBracket">(</span>format<span class="asBracket">))</span>;
+            <span class="asTrace">trace</span><span class="asBracket">(</span>myMovieData.teaserImage<span class="asBracket">)</span>;
+            movieSource <span class="asOperator">=</span> myMovieData.moviePath;
+            myVid.play<span class="asBracket">()</span>;
+            
+            <span class="asVar">var</span> o<span class="asOperator">:</span>MovieSelectedEvent <span class="asOperator">=</span> <span class="asReserved">new</span> MovieSelectedEvent<span class="asBracket">(</span>myMovieData,<span class="asString">&apos;movieSelected&apos;</span><span class="asBracket">)</span>;
+            <span class="asReserved">this</span>.dispatchEvent<span class="asBracket">(</span>o<span class="asBracket">)</span>;
+        <span class="asBracket">}</span>
+        
+        <span class="asReserved">private</span> <span class="asFunction">function</span> switchSource<span class="asBracket">(</span>_source<span class="asOperator">:</span>String<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+            movieSource <span class="asOperator">=</span> _source;
+            myVid.play<span class="asBracket">()</span>;
+            
+        <span class="asBracket">}</span>
+    <span class="asBracket">]]</span><span class="asOperator">&gt;</span>
+<span class="mxmlTag">&lt;/mx:Script&gt;</span>
+
+    <span class="mxmlComponent">&lt;mx:VideoDisplay</span>   id=&quot;<span class="mxmlString">myVid</span>&quot; autoPlay=&quot;<span class="mxmlString">false</span>&quot; 
+        dragEnter=&quot;doDragEnter<span class="asBracket">(</span>event , <span class="asString">&apos;movieItemFormat&apos;</span><span class="asBracket">)</span>&quot; dragDrop=&quot;doDragDrop<span class="asBracket">(</span>event,<span class="asString">&apos;movieItemFormat&apos;</span><span class="asBracket">)</span>&quot; source=&quot;<span class="mxmlString">{</span>movieSource<span class="mxmlString">}</span>&quot; <span class="mxmlComponent">/&gt;</span>
+    <span class="mxmlComponent">&lt;tv:VideoControllerBar</span> play=&quot;playMe<span class="asBracket">()</span>&quot; pause=&quot;pauseMe<span class="asBracket">()</span>&quot; stop=&quot;stopMe<span class="asBracket">()</span>&quot;<span class="mxmlComponent">/&gt;</span>
+<span class="mxmlComponent">&lt;/mx:Panel&gt;</span></pre></body>
+</html>

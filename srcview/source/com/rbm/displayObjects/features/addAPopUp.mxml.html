@@ -1,0 +1,94 @@
+<!-- saved from url=(0014)about:internet -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>addAPopUp.mxml</title>
+<link rel="stylesheet" type="text/css" href="../../../../../SourceStyles.css"/>
+</head>
+
+<body><pre><span class="mxmlCdata">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="mxmlComponent">&lt;mx:Panel</span> xmlns:mx=&quot;<span class="mxmlString">http://www.adobe.com/2006/mxml</span>&quot; xmlns:man=&quot;<span class="mxmlString">com.rbm.managers.*</span>&quot; layout=&quot;<span class="mxmlString">vertical</span>&quot; styleName=&quot;<span class="mxmlString">addAQuote</span>&quot; title=&quot;<span class="mxmlString">Pop-Up Quote</span>&quot; currentState=&quot;<span class="mxmlString">disabled</span>&quot; creationComplete =&quot;init<span class="asBracket">()</span>&quot;<span class="mxmlComponent">&gt;</span>
+    <span class="mxmlComponent">&lt;mx:states&gt;</span>
+        <span class="mxmlComponent">&lt;mx:State</span> name=&quot;<span class="mxmlString">disabled</span>&quot;<span class="mxmlComponent">&gt;</span>
+            <span class="mxmlComponent">&lt;mx:SetProperty</span> target=&quot;<span class="mxmlString">{</span>tBox<span class="mxmlString">}</span>&quot; name=&quot;<span class="mxmlString">editable</span>&quot; value=&quot;<span class="mxmlString">false</span>&quot;<span class="mxmlComponent">/&gt;</span>
+            <span class="mxmlComponent">&lt;mx:SetStyle</span> target=&quot;<span class="mxmlString">{</span>tBox<span class="mxmlString">}</span>&quot; name=&quot;<span class="mxmlString">backgroundAlpha</span>&quot; value=&quot;<span class="mxmlString">0.44</span>&quot;<span class="mxmlComponent">/&gt;</span>
+        <span class="mxmlComponent">&lt;/mx:State&gt;</span>
+    <span class="mxmlComponent">&lt;/mx:states&gt;</span>
+    
+    <span class="mxmlTag">&lt;mx:Script&gt;</span>
+        <span class="asOperator">&lt;!</span><span class="asBracket">[</span>CDATA<span class="asBracket">[</span>
+        
+            <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+            <span class="asReserved">public</span> <span class="asVar">var</span> movieID<span class="asOperator">:</span>Number;
+            
+            <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+            <span class="asReserved">public</span> <span class="asVar">var</span> comment<span class="asOperator">:</span>String;
+            
+            <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+            <span class="asReserved">public</span> <span class="asVar">var</span> cuePoints<span class="asOperator">:</span>String;
+        
+        <span class="asReserved">private</span> <span class="asFunction">function</span> init<span class="asBracket">()</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+            
+        <span class="asBracket">}</span>
+            <span class="asReserved">private</span> <span class="asFunction">function</span> resetField<span class="asBracket">()</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+                <span class="asReserved">if</span><span class="asBracket">(</span>tBox.text<span class="asOperator">==</span><span class="asString">&quot;Type your comment&quot;</span> <span class="asOperator">&amp;&amp;</span> <span class="asReserved">this</span>.currentState<span class="asOperator">==</span><span class="asString">&apos;&apos;</span><span class="asBracket">){</span>
+                    tBox.text<span class="asOperator">=</span><span class="asString">&apos;&apos;</span>;
+                <span class="asBracket">}</span>
+            <span class="asBracket">}</span>
+            
+            <span class="asReserved">public</span> <span class="asFunction">function</span> enable<span class="asBracket">(</span>time<span class="asOperator">:</span>String<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+                <span class="asReserved">this</span>.cuePoints <span class="asOperator">=</span> formatTime<span class="asBracket">(</span>time<span class="asBracket">)</span>;
+                <span class="asReserved">this</span>.currentState<span class="asOperator">=</span><span class="asString">&apos;&apos;</span>;
+            <span class="asBracket">}</span>
+            
+            <span class="asReserved">public</span> <span class="asFunction">function</span> disable<span class="asBracket">(</span>time<span class="asOperator">:</span>String<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+                <span class="asReserved">this</span>.currentState<span class="asOperator">=</span><span class="asString">&apos;disabled&apos;</span>;
+                <span class="asComment">//trace(&apos;disabled at &apos;+ time);
+</span>                <span class="asReserved">this</span>.cuePoints<span class="asOperator">=</span>formatTime<span class="asBracket">(</span>time<span class="asBracket">)</span>;
+            <span class="asBracket">}</span>
+            
+            <span class="asReserved">private</span> <span class="asFunction">function</span> addComment<span class="asBracket">()</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+            <span class="asReserved">if</span><span class="asBracket">(</span><span class="asReserved">this</span>.currentState <span class="asOperator">==</span> <span class="asString">&apos;&apos;</span><span class="asBracket">){</span>
+                    pum.popUp.addPopUp.send<span class="asBracket">()</span>;
+            <span class="asBracket">}</span>
+                <span class="asReserved">this</span>.currentState<span class="asOperator">=</span><span class="asString">&apos;disabled&apos;</span>;
+                tBox.text<span class="asOperator">=</span><span class="asString">&quot;Type your comment&quot;</span>
+            <span class="asBracket">}</span>
+            
+            <span class="asReserved">private</span> <span class="asFunction">function</span> formatTime<span class="asBracket">(</span>myTime<span class="asOperator">:</span>String<span class="asBracket">)</span><span class="asOperator">:</span>String<span class="asBracket">{</span>
+                <span class="asVar">var</span> returnString<span class="asOperator">:</span>String;
+                
+                <span class="asVar">var</span> myTimeArray<span class="asOperator">:</span>Array <span class="asOperator">=</span> myTime.split<span class="asBracket">(</span><span class="asString">&apos;.&apos;</span><span class="asBracket">)</span>;
+                <span class="asVar">var</span> theTime<span class="asOperator">:</span>Number <span class="asOperator">=</span> Number<span class="asBracket">(</span>myTimeArray<span class="asBracket">[</span>0<span class="asBracket">])</span>;
+                <span class="asReserved">if</span><span class="asBracket">(</span>theTime <span class="asOperator">&gt;</span> 60<span class="asBracket">){</span>
+                    theTime <span class="asOperator">=</span> theTime<span class="asOperator">/</span>60;
+                    <span class="asVar">var</span> theTimes<span class="asOperator">:</span>Array <span class="asOperator">=</span> String<span class="asBracket">(</span>theTime<span class="asBracket">)</span>.split<span class="asBracket">(</span><span class="asString">&apos;.&apos;</span><span class="asBracket">)</span>;
+                    <span class="asReserved">if</span> <span class="asBracket">(</span>theTimes.length <span class="asOperator">&gt;</span>0<span class="asBracket">){</span>
+                    returnString <span class="asOperator">=</span> <span class="asString">&apos;00:0&apos;</span><span class="asOperator">+</span>theTimes<span class="asBracket">[</span>0<span class="asBracket">]</span><span class="asOperator">+</span><span class="asString">&apos;:&apos;</span><span class="asOperator">+</span><span class="asBracket">(</span>60<span class="asOperator">*</span>Number<span class="asBracket">(</span>Number<span class="asBracket">(</span>theTimes<span class="asBracket">[</span>1<span class="asBracket">]</span><span class="asOperator">/</span>100<span class="asBracket">)</span>.toPrecision<span class="asBracket">(</span>2<span class="asBracket">)))</span>;
+                    <span class="asBracket">}</span>
+                    <span class="asReserved">else</span><span class="asBracket">{</span>
+                        returnString <span class="asOperator">=</span> <span class="asString">&apos;00:0&apos;</span><span class="asOperator">+</span>theTimes<span class="asBracket">[</span>0<span class="asBracket">]</span><span class="asOperator">+</span><span class="asString">&apos;:00&apos;</span>
+                <span class="asBracket">}</span>
+                <span class="asBracket">}</span>
+                <span class="asReserved">else</span><span class="asBracket">{</span>
+                    <span class="asReserved">if</span><span class="asBracket">(</span>Number<span class="asBracket">(</span>myTime<span class="asBracket">)</span> <span class="asOperator">&gt;</span> 9.9<span class="asBracket">){</span>
+                    returnString <span class="asOperator">=</span> <span class="asString">&apos;00:00:&apos;</span><span class="asOperator">+</span>myTime;
+                    <span class="asBracket">}</span>
+                    <span class="asReserved">else</span><span class="asBracket">{</span>
+                        returnString <span class="asOperator">=</span> <span class="asString">&apos;00:00:0&apos;</span><span class="asOperator">+</span>myTime;
+                    <span class="asBracket">}</span>
+                <span class="asBracket">}</span>
+                <span class="asTrace">trace</span><span class="asBracket">(</span><span class="asString">&apos;[theTime] &apos;</span><span class="asOperator">+</span>returnString<span class="asBracket">)</span>;
+                <span class="asReserved">return</span> returnString;
+            <span class="asBracket">}</span>
+        <span class="asBracket">]]</span><span class="asOperator">&gt;</span>
+    <span class="mxmlTag">&lt;/mx:Script&gt;</span>
+    <span class="mxmlComponent">&lt;mx:TextArea</span> id=&quot;<span class="mxmlString">tBox</span>&quot; text=&quot;<span class="mxmlString">Type your comment</span>&quot; height=&quot;<span class="mxmlString">50</span>&quot; maxChars=&quot;<span class="mxmlString">75</span>&quot;  percentWidth=&quot;<span class="mxmlString">100</span>&quot;  backgroundColor=&quot;<span class="mxmlString">#000000</span>&quot; backgroundAlpha=&quot;<span class="mxmlString">0.66</span>&quot; fontSize=&quot;<span class="mxmlString">9</span>&quot;
+        focusOut=&quot;addComment<span class="asBracket">()</span>&quot; focusIn=&quot;resetField<span class="asBracket">()</span>&quot;<span class="mxmlComponent">/&gt;</span>
+        <span class="mxmlComponent">&lt;mx:HBox</span>  id=&quot;<span class="mxmlString">btn</span>&quot; width=&quot;<span class="mxmlString">100%</span>&quot; horizontalAlign=&quot;<span class="mxmlString">right</span>&quot;<span class="mxmlComponent">&gt;</span>
+            <span class="mxmlComponent">&lt;mx:Button</span>  label=&quot;<span class="mxmlString">reset</span>&quot; height=&quot;<span class="mxmlString">13</span>&quot; styleName=&quot;<span class="mxmlString">colorReset</span>&quot; click=&quot;addComment<span class="asBracket">()</span>&quot;  <span class="mxmlComponent">/&gt;</span>
+        <span class="mxmlComponent">&lt;/mx:HBox&gt;</span>
+        <span class="mxmlComponent">&lt;man:PopUpManager</span>  id=&quot;<span class="mxmlString">pum</span>&quot; movieID=&apos;<span class="mxmlString">{</span>movieID<span class="mxmlString">}</span>&apos; comment=&quot;<span class="mxmlString">{</span>tBox.text<span class="mxmlString">}</span>&quot; cuePoints=&quot;<span class="mxmlString">{</span>cuePoints<span class="mxmlString">}</span>&quot; <span class="mxmlComponent">/&gt;</span>
+<span class="mxmlComponent">&lt;/mx:Panel&gt;</span></pre></body>
+</html>

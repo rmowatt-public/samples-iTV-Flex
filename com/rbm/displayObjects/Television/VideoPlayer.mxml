@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:tv="com.rbm.displayObjects.Television.*" layout="absolute" title="i711.TV" width="{myVid.width + 22}" creationComplete="switchSource(loaderMovie)" currentState="">
+	<mx:states>
+		<mx:State name="captionClosed">
+			<mx:RemoveChild target="{captionArea}"/>
+		</mx:State>
+	</mx:states>
+<mx:Metadata>
+	[Event(name="play",type="events.VideoPlayerEvent")]
+	[Event(name="stop",type="events.VideoPlayerEvent")]
+	[Event(name="pause",type="events.VideoPlayerEvent")]
+	[Event(name="movieSelected", type="events.MovieSelectedEvent")]
+</mx:Metadata>
+<mx:Script>
+	<![CDATA[
+		import mx.managers.DragManager;
+		import mx.events.DragEvent;
+		import mx.core.IUIComponent;
+		import com.rbm.valueObjects.MovieItem;
+		import events.MovieSelectedEvent;
+		import mx.events.CuePointEvent;
+		import events.VideoPlayerEvent;
+		
+		[Bindable]
+		public var loaderMovie:String;
+		
+		[Bindable]
+		private var movieSource:String;
+		
+		[Bindable]
+        public var myCuePoints:Array;  
+        
+        [Bindable]
+        private var captionText:String;    
+        
+        [Bibdable]
+        public var captionAutoOn:Boolean = false;    
+            
+            // Set cue points using methods of the CuePointManager class.
+            private function initCP():void {
+            	myVid.cuePointManager.removeAllCuePoints();
+                myVid.cuePointManager.setCuePoints(myCuePoints);
+            }
+
+		
+		private function playMe():void{
+			this.myVid.play();
+			var o:VideoPlayerEvent = new VideoPlayerEvent(myVid ,'play');
+			this.dispatchEvent(o);
+			
+		}
+		private function stopMe():void{
+			this.myVid.stop();
+			var o:VideoPlayerEvent = new VideoPlayerEvent(myVid ,'stop');
+			this.dispatchEvent(o);
+		}
+		private function pauseMe():void{
+			this.myVid.pause();
+			var o:VideoPlayerEvent = new VideoPlayerEvent(myVid ,'pause');
+			this.dispatchEvent(o);
+		}
+		
+		private function muteMe():void{
+			if(this.myVid.volume > 0.0){
+				this.myVid.volume = 0.0;
+			}
+			else{
+				this.myVid.volume = 1.0
+			}
+		}
+		
+		private function doDragEnter(event:DragEvent , format:String):void{
+			if(event.dragSource.hasFormat(format)){
+				DragManager.acceptDragDrop(IUIComponent(event.target));
+			}
+		}
+		
+		private function doDragDrop(event:DragEvent, format:String):void{
+			var myMovieData:MovieItem = MovieItem(event.dragSource.dataForFormat(format));
+			movieSource = myMovieData.moviePath;
+			myVid.load();
+			captionArea.visible = captionAutoOn;
+			initCP();// create our cue points
+			var o:MovieSelectedEvent = new MovieSelectedEvent(myMovieData,'movieSelected');
+			this.dispatchEvent(o);
+		}
+		
+		private function switchSource(_source:String):void{
+			captionArea.visible = captionAutoOn;
+			movieSource = _source;
+			myVid.load();
+		}
+		
+		private function setCaptionText(_caption:String):void{
+			this.captionText = _caption;
+		}
+		
+		private function showCaptions():void{
+			if(this.captionArea.visible){
+				this.captionArea.visible = false;
+			}
+			else{
+				this.captionArea.visible = true;
+			}
+		}
+	]]>
+</mx:Script>
+
+	<mx:VideoDisplay
+		id="myVid"
+		dragEnter="doDragEnter(event , 'movieItemFormat')" 
+		dragDrop="doDragDrop(event,'movieItemFormat')" 
+		source="{movieSource}" 
+		complete="mx.controls.Alert.show('im closed')"
+		cuePointManagerClass="mx.controls.videoClasses.CuePointManager"
+		cuePoint = "setCaptionText(event.cuePointName)"  x="0" y="0"
+	/>
+	
+	<mx:TextArea 
+		id="captionArea" 
+		text="{captionText}" 
+		fontSize="11" 
+		x="0" y="195" height="45" width="320" 
+		enabled="true" 
+		color="#ff0000" wordWrap="true" editable="false" 
+		borderStyle="outset" borderColor="#ff0000" 
+		backgroundAlpha="0.6" backgroundColor="#000000" 
+		fontFamily="Arial" fontWeight="bold"
+		showEffect="WipeUp" hideEffect="WipeDown" 
+	/>
+		
+	<tv:VideoControllerBar play="playMe()" pause="pauseMe()" stop="stopMe()" mute="muteMe()" caption="showCaptions()" x="2" y="242"/>
+</mx:Panel>

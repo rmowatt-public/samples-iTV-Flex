@@ -1,0 +1,61 @@
+<!-- saved from url=(0014)about:internet -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>CaptionLoader.mxml</title>
+<link rel="stylesheet" type="text/css" href="../../../../SourceStyles.css"/>
+</head>
+
+<body><pre><span class="mxmlCdata">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+
+
+
+<span class="mxmlComponent">&lt;mx:Canvas</span> xmlns:mx=&quot;<span class="mxmlString">http://www.adobe.com/2006/mxml</span>&quot; creationComplete=&quot;movieCaption.send<span class="asBracket">()</span>&quot;<span class="mxmlComponent">&gt;</span>
+    <span class="mxmlTag">&lt;mx:Metadata&gt;</span>
+        <span class="mxmlCdata">[Event(name=&quot;captionsLoaded&quot;, type=&quot;events.CaptionEvent&quot;)]
+    </span><span class="mxmlTag">&lt;/mx:Metadata&gt;</span>
+    <span class="mxmlTag">&lt;mx:Script&gt;</span>
+        <span class="asOperator">&lt;!</span><span class="asBracket">[</span>CDATA<span class="asBracket">[</span>
+            <span class="asReserved">import</span> mx.rpc.events.ResultEvent;
+            <span class="asReserved">import</span> events.CaptionEvent;
+            
+            <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+            <span class="asReserved">public</span> <span class="asVar">var</span> captionSource<span class="asOperator">:</span>String;
+            
+            <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+            <span class="asReserved">public</span> <span class="asVar">var</span> currentID<span class="asOperator">:</span>String;
+            
+            <span class="asReserved">public</span> <span class="asFunction">function</span> update<span class="asBracket">()</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+                movieCaption.send<span class="asBracket">()</span>;
+            <span class="asBracket">}</span>
+            
+            <span class="asReserved">public</span> <span class="asFunction">function</span> makeCaption<span class="asBracket">(</span>event<span class="asOperator">:</span>ResultEvent<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+                <span class="asReserved">if</span><span class="asBracket">(</span>captionArray<span class="asBracket">){</span>
+                    captionArray <span class="asOperator">=</span> <span class="asReserved">null</span>;
+                <span class="asBracket">}</span>
+                <span class="asVar">var</span> captionArray<span class="asOperator">:</span>Array <span class="asOperator">=</span> <span class="asReserved">new</span> Array<span class="asBracket">()</span>;
+                <span class="asReserved">for</span> <span class="asReserved">each</span><span class="asBracket">(</span><span class="asVar">var</span> m<span class="asOperator">:</span>XML <span class="asReserved">in</span> event.result..Caption<span class="asBracket">){</span>
+                    <span class="asVar">var</span> o<span class="asOperator">:</span>Object <span class="asOperator">=</span> <span class="asReserved">new</span> Object<span class="asBracket">()</span>;
+                    o.name <span class="asOperator">=</span> m.PlainTextCaption;
+                    o.time <span class="asOperator">=</span> makeTime<span class="asBracket">(</span>m.@startTime<span class="asBracket">)</span>;
+                    captionArray.push<span class="asBracket">(</span>o<span class="asBracket">)</span>;
+                <span class="asBracket">}</span>
+                <span class="asVar">var</span> e<span class="asOperator">:</span>CaptionEvent <span class="asOperator">=</span> <span class="asReserved">new</span> CaptionEvent<span class="asBracket">(</span>captionArray,<span class="asString">&quot;captionsLoaded&quot;</span><span class="asBracket">)</span>;
+                <span class="asReserved">this</span>.dispatchEvent<span class="asBracket">(</span>e<span class="asBracket">)</span>;
+            <span class="asBracket">}</span>
+            
+            <span class="asReserved">private</span> <span class="asFunction">function</span> makeTime<span class="asBracket">(</span>time<span class="asOperator">:</span>String<span class="asBracket">)</span><span class="asOperator">:</span>Number<span class="asBracket">{</span>
+                <span class="asVar">var</span> myTime<span class="asOperator">:</span>String <span class="asOperator">=</span> time.substr<span class="asBracket">(</span>3,5<span class="asBracket">)</span>;
+                <span class="asVar">var</span> myTimeArray<span class="asOperator">:</span>Array <span class="asOperator">=</span> myTime.split<span class="asBracket">(</span><span class="asString">&apos;:&apos;</span><span class="asBracket">)</span>;
+                <span class="asReserved">if</span><span class="asBracket">(</span>myTimeArray<span class="asBracket">[</span>0<span class="asBracket">]</span> <span class="asOperator">&gt;</span> 0<span class="asBracket">){</span>
+                    myTimeArray<span class="asBracket">[</span>1<span class="asBracket">]</span> <span class="asOperator">=</span> Number<span class="asBracket">(</span>myTimeArray<span class="asBracket">[</span>1<span class="asBracket">])</span> <span class="asOperator">+</span> <span class="asBracket">(</span>Number<span class="asBracket">(</span>myTimeArray<span class="asBracket">[</span>0<span class="asBracket">])</span><span class="asOperator">*</span>60<span class="asBracket">)</span>;
+                <span class="asBracket">}</span>
+                myTime <span class="asOperator">=</span> String<span class="asBracket">(</span>myTimeArray<span class="asBracket">[</span>1<span class="asBracket">])</span>;
+                <span class="asReserved">return</span> Number<span class="asBracket">(</span>myTime<span class="asBracket">)</span>;
+            <span class="asBracket">}</span>
+        <span class="asBracket">]]</span><span class="asOperator">&gt;</span>
+    <span class="mxmlTag">&lt;/mx:Script&gt;</span>
+    <span class="mxmlComponent">&lt;mx:HTTPService</span> id=&quot;<span class="mxmlString">movieCaption</span>&quot; url=&quot;<span class="mxmlString">{</span>captionSource <span class="asOperator">+</span> currentID<span class="mxmlString">}</span>&quot; result=&quot;makeCaption<span class="asBracket">(</span>event<span class="asBracket">)</span>&quot; resultFormat=&quot;<span class="mxmlString">e4x</span>&quot;<span class="mxmlComponent">/&gt;</span>
+<span class="mxmlComponent">&lt;/mx:Canvas&gt;</span></pre></body>
+</html>

@@ -1,0 +1,44 @@
+<!-- saved from url=(0014)about:internet -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>Category.as</title>
+<link rel="stylesheet" type="text/css" href="../../../../SourceStyles.css"/>
+</head>
+
+<body><pre><span class="asPackage">package</span> com.rbm.valueObjects
+<span class="asBracket">{</span>
+    <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+    <span class="asReserved">public</span> <span class="asClass">class</span> Category
+    <span class="asBracket">{</span>
+        <span class="asReserved">import</span> com.rbm.displayObjects.VideoSelectionDisplay.MovieDisplayContainer;
+        <span class="asReserved">public</span> <span class="asVar">var</span> catID<span class="asOperator">:</span>int;
+        <span class="asReserved">public</span> <span class="asVar">var</span> catName<span class="asOperator">:</span>String;
+        <span class="asReserved">public</span> <span class="asVar">var</span> catDescription<span class="asOperator">:</span>String;
+        <span class="asReserved">public</span> <span class="asVar">var</span> visible<span class="asOperator">:</span>Boolean;
+        <span class="asReserved">public</span> <span class="asVar">var</span> assocCat<span class="asOperator">:</span>String;
+        <span class="asReserved">public</span> <span class="asVar">var</span> label<span class="asOperator">:</span>String;
+        
+        <span class="asReserved">public</span> <span class="asVar">var</span> subCatArray<span class="asOperator">:</span>Array <span class="asOperator">=</span> <span class="asReserved">new</span> Array<span class="asBracket">()</span>;
+        
+        <span class="asReserved">public</span> <span class="asFunction">function</span> Category<span class="asBracket">(</span>_id<span class="asOperator">:</span>int,_catName<span class="asOperator">:</span>String , _catDescription<span class="asOperator">:</span>String , _visible<span class="asOperator">:</span>Boolean <span class="asOperator">=</span> <span class="asReserved">false</span> , _assocCat<span class="asOperator">:</span>String <span class="asOperator">=</span> <span class="asReserved">null</span><span class="asBracket">){</span>
+            <span class="asReserved">this</span>.catID <span class="asOperator">=</span> _id;
+            <span class="asReserved">this</span>.catName <span class="asOperator">=</span> _catName;
+            <span class="asReserved">this</span>.catDescription<span class="asOperator">=</span>_catDescription;
+            <span class="asReserved">this</span>.visible <span class="asOperator">=</span> _visible;
+            <span class="asReserved">this</span>.assocCat <span class="asOperator">=</span> _assocCat;
+            <span class="asReserved">this</span>.label <span class="asOperator">=</span> _catName;
+        <span class="asBracket">}</span>
+        
+        <span class="asReserved">public</span> <span class="asFunction">function</span> addToCategory<span class="asBracket">(</span>movie<span class="asOperator">:</span>MovieDisplayContainer<span class="asBracket">)</span><span class="asOperator">:</span>int<span class="asBracket">{</span>
+            subCatArray.push<span class="asBracket">(</span>movie<span class="asBracket">)</span>;
+            <span class="asReserved">return</span> Number<span class="asBracket">(</span>subCatArray.length <span class="asOperator">-</span> 1<span class="asBracket">)</span>;
+        <span class="asBracket">}</span>
+        
+        <span class="asReserved">public</span> <span class="asFunction">function</span> toString<span class="asBracket">()</span><span class="asOperator">:</span>String<span class="asBracket">{</span>
+            <span class="asReserved">return</span> <span class="asString">&quot;[Category] &quot;</span> <span class="asOperator">+</span> catName;
+        <span class="asBracket">}</span>
+    <span class="asBracket">}</span>
+<span class="asBracket">}</span></pre></body>
+</html>

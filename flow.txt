@@ -1,0 +1,17 @@
+flow 
+
+1. iTV.mxml loaded and creates VideoPlayer , PickAVideo and UserOptions
+
+     a. Upon creation Video Player loads default movie
+     b. Upon creation PickAVideo creates a CategorizedMovieManager which will hold an array of MovieItemDisplay objects sorted by category.
+     c. PickAVideo catches a dataReady event from CategorizedMovieManager and displays video selections to user
+
+2. MovieItemDisplay object is dragged and dropped on video player
+
+     a. videoDisplay source id switched and a MovieSelected event is fired passing a copy of the MovieItem
+     b. iTV application component catches MovieSelected event , updates its current title and sends the new id to comment panel
+	   1. comment panel updates the movie id and in effect the movieId's of the 3 components bound to it
+           2. Web service is used to getComments associated with movie
+	   3. view comments panel is updated
+     c. iTV application uses CaptionLoader to get captions for current video and update myCaptions which is bound to video player
+           1. Video player attaches cue points to VideoDisplay

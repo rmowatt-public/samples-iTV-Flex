@@ -1,0 +1,92 @@
+<!-- saved from url=(0014)about:internet -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>AddComments.mxml</title>
+<link rel="stylesheet" type="text/css" href="../../../../../SourceStyles.css"/>
+</head>
+
+<body><pre><span class="mxmlCdata">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="mxmlComment">&lt;!--</span><span class="mxmlComment"> Allows users to add a comment </span><span class="mxmlComment">--&gt;</span>
+<span class="mxmlComponent">&lt;mx:Canvas</span> xmlns:mx=&quot;<span class="mxmlString">http://www.adobe.com/2006/mxml</span>&quot; height=&quot;<span class="mxmlString">100%</span>&quot;<span class="mxmlComponent">&gt;</span>
+
+<span class="mxmlComment">&lt;!--</span><span class="mxmlComment"> Tell others when a cooment is submitted  </span><span class="mxmlComment">--&gt;</span>
+<span class="mxmlTag">&lt;mx:Metadata&gt;</span>
+    <span class="mxmlCdata">[Event(name=&quot;commentSubmitted&quot; , type=&quot;events.CommentEvent&quot;)]
+</span><span class="mxmlTag">&lt;/mx:Metadata&gt;</span>
+    <span class="mxmlTag">&lt;mx:Script&gt;</span>
+        <span class="asOperator">&lt;!</span><span class="asBracket">[</span>CDATA<span class="asBracket">[</span>
+            <span class="asReserved">import</span> mx.rpc.events.ResultEvent;
+            <span class="asReserved">import</span> mx.rpc.events.FaultEvent;
+            <span class="asReserved">import</span> mx.controls.Alert;
+            <span class="asReserved">import</span> flash.events.TextEvent;
+            <span class="asReserved">import</span> events.CommentEvent;
+            <span class="asReserved">import</span> mx.rpc.soap.WebService;
+            
+            <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+            <span class="asReserved">public</span> <span class="asVar">var</span> videoID<span class="asOperator">:</span>Number;<span class="asComment">//the id of the current video selection =)
+</span>            
+            <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+            <span class="asReserved">public</span> <span class="asVar">var</span> subjectName<span class="asOperator">:</span>String;<span class="asComment">//label display
+</span>            
+            <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+            <span class="asReserved">public</span> <span class="asVar">var</span> dataSource<span class="asOperator">:</span>String;
+            
+            <span class="asReserved">private</span> <span class="asVar">var</span> o<span class="asOperator">:</span>Object;<span class="asComment">//gets passed with commentSubmitted event
+</span>            
+            <span class="asReserved">private</span> <span class="asFunction">function</span> meClicked<span class="asBracket">(</span>event<span class="asOperator">:</span>Event<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span><span class="asComment">//adds the comment to db
+</span>                <span class="asComment">//create comment object to be sent with event
+</span>                o <span class="asOperator">=</span> <span class="asReserved">new</span> Object<span class="asBracket">()</span>;
+                o.name <span class="asOperator">=</span> String<span class="asBracket">(</span>yname.text<span class="asBracket">)</span>;
+                o.comment <span class="asOperator">=</span> String<span class="asBracket">(</span>comment.text<span class="asBracket">)</span>;
+                o.videoID <span class="asOperator">=</span> Number<span class="asBracket">(</span>videoID<span class="asBracket">)</span>;
+                o.stars <span class="asOperator">=</span> Number<span class="asBracket">(</span>5<span class="asBracket">)</span>;
+                
+                <span class="asReserved">this</span>.videoID <span class="asOperator">=</span> Number<span class="asBracket">(</span>videoID<span class="asBracket">)</span>;
+                
+                <span class="asComment">//create web service and add comment to database
+</span>                <span class="asVar">var</span> ws<span class="asOperator">:</span>WebService <span class="asOperator">=</span> <span class="asReserved">new</span> WebService<span class="asBracket">()</span>;
+                ws.wsdl <span class="asOperator">=</span> dataSource;
+                ws.loadWSDL<span class="asBracket">()</span>;
+                ws.addComment<span class="asBracket">(</span>videoID ,3, comment.text , 4<span class="asBracket">)</span>;
+                ws.addEventListener<span class="asBracket">(</span><span class="asString">&quot;result&quot;</span>,imGood<span class="asBracket">)</span>;
+                ws.addEventListener<span class="asBracket">(</span><span class="asString">&quot;fault&quot;</span>,imBad<span class="asBracket">)</span>;
+            <span class="asBracket">}</span>
+            
+            <span class="asReserved">public</span> <span class="asFunction">function</span> imGood<span class="asBracket">(</span>event<span class="asOperator">:</span>mx.rpc.events.ResultEvent<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+                <span class="asComment">//tell others a comment was submitted and offer them the info
+</span>                <span class="asVar">var</span> e<span class="asOperator">:</span>CommentEvent <span class="asOperator">=</span> <span class="asReserved">new</span> CommentEvent<span class="asBracket">(</span>o,<span class="asString">&quot;commentSubmitted&quot;</span><span class="asBracket">)</span>;
+                <span class="asReserved">this</span>.dispatchEvent<span class="asBracket">(</span>e<span class="asBracket">)</span>;
+                o <span class="asOperator">=</span> <span class="asReserved">null</span>;
+                <span class="asReserved">this</span>.yname.text <span class="asOperator">=</span>  <span class="asReserved">this</span>.comment.text <span class="asOperator">=</span> <span class="asReserved">this</span>.email.text <span class="asOperator">=</span> <span class="asString">&apos;&apos;</span>;
+            <span class="asBracket">}</span>
+            
+            <span class="asReserved">public</span> <span class="asFunction">function</span> imBad<span class="asBracket">(</span>event<span class="asOperator">:</span>mx.rpc.events.FaultEvent<span class="asBracket">)</span><span class="asOperator">:</span><span class="asReserved">void</span><span class="asBracket">{</span>
+                <span class="asTrace">trace</span><span class="asBracket">(</span>event.toString<span class="asBracket">())</span>;
+            <span class="asBracket">}</span>
+        <span class="asBracket">]]</span><span class="asOperator">&gt;</span>
+    <span class="mxmlTag">&lt;/mx:Script&gt;</span>
+    
+    <span class="mxmlComment">&lt;!--</span><span class="mxmlComment"> A series of validators for users info </span><span class="mxmlComment">--&gt;</span>
+    <span class="mxmlComponent">&lt;mx:StringValidator</span> id=&quot;<span class="mxmlString">userNameValidator</span>&quot; source=&quot;<span class="mxmlString">{</span>yname<span class="mxmlString">}</span>&quot; property=&quot;<span class="mxmlString">text</span>&quot; <span class="mxmlComponent">/&gt;</span>
+    <span class="mxmlComponent">&lt;mx:StringValidator</span> id=&quot;<span class="mxmlString">commentValidator</span>&quot; source=&quot;<span class="mxmlString">{</span>comment<span class="mxmlString">}</span>&quot; property=&quot;<span class="mxmlString">text</span>&quot; <span class="mxmlComponent">/&gt;</span>
+    <span class="mxmlComponent">&lt;mx:EmailValidator</span> id=&quot;<span class="mxmlString">eMailValidator</span>&quot; source=&quot;<span class="mxmlString">{</span>email<span class="mxmlString">}</span>&quot; property=&quot;<span class="mxmlString">text</span>&quot; <span class="mxmlComponent">/&gt;</span>
+    
+    <span class="mxmlComment">&lt;!--</span><span class="mxmlComment"> Begin visual rendering </span><span class="mxmlComment">--&gt;</span>
+    <span class="mxmlComponent">&lt;mx:Label</span> text=&quot;<span class="mxmlString">{</span>subjectName<span class="mxmlString">}</span>&quot; <span class="mxmlComponent">/&gt;</span>
+    <span class="mxmlComponent">&lt;mx:Form&gt;</span>
+        <span class="mxmlComponent">&lt;mx:FormHeading</span> label=&quot;<span class="mxmlString">Add A Comment</span>&quot; <span class="mxmlComponent">/&gt;</span>
+        <span class="mxmlComponent">&lt;mx:FormItem</span> label=&quot;<span class="mxmlString">Your Name</span>&quot; required=&quot;<span class="mxmlString">true</span>&quot;<span class="mxmlComponent">&gt;</span>
+            <span class="mxmlComponent">&lt;mx:TextInput</span> id=&quot;<span class="mxmlString">yname</span>&quot;  <span class="mxmlComponent">/&gt;</span>
+        <span class="mxmlComponent">&lt;/mx:FormItem&gt;</span>
+        <span class="mxmlComponent">&lt;mx:FormItem</span> label=&quot;<span class="mxmlString">Your Comment</span>&quot; required=&quot;<span class="mxmlString">true</span>&quot;<span class="mxmlComponent">&gt;</span>
+            <span class="mxmlComponent">&lt;mx:TextArea</span> id=&quot;<span class="mxmlString">comment</span>&quot;  <span class="mxmlComponent">/&gt;</span>
+        <span class="mxmlComponent">&lt;/mx:FormItem&gt;</span>
+        <span class="mxmlComponent">&lt;mx:FormItem</span> label=&quot;<span class="mxmlString">Your Email (will not be shared)</span>&quot; required=&quot;<span class="mxmlString">true</span>&quot;<span class="mxmlComponent">&gt;</span>
+            <span class="mxmlComponent">&lt;mx:TextInput</span> id=&quot;<span class="mxmlString">email</span>&quot;  <span class="mxmlComponent">/&gt;</span>
+        <span class="mxmlComponent">&lt;/mx:FormItem&gt;</span>
+        <span class="mxmlComponent">&lt;mx:Button</span> label=&quot;<span class="mxmlString">click me</span>&quot; click=&quot;meClicked<span class="asBracket">(</span>event<span class="asBracket">)</span>&quot; <span class="mxmlComponent">/&gt;</span>
+    <span class="mxmlComponent">&lt;/mx:Form&gt;</span>
+<span class="mxmlComponent">&lt;/mx:Canvas&gt;</span></pre></body>
+</html>

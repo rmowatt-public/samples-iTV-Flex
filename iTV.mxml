@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:c="com.rbm.displayObjects.CommentPanel.*" xmlns:tv="com.rbm.displayObjects.Television.*" xmlns:vid="com.rbm.displayObjects.Videos.*" xmlns:d="com.rbm.displayObjects.CommentPanel.*" layout="absolute">
+	<mx:states>
+		<mx:State name="userComments">
+			<mx:SetProperty target="{hbox1}" name="height" value="25"/>
+			<mx:SetProperty target="{commentpanel}" name="height" value="400"/>
+		</mx:State>
+	</mx:states>
+	<mx:Script>
+		<![CDATA[
+			import events.MovieSelectedEvent;
+			import events.CaptionEvent;
+			import mx.controls.Alert;
+			
+			[Bindable]
+			public var currentMovieTitle:String = '';
+			
+			[Bindable]
+			public var myCaptions:Array = new Array();
+	
+			
+			private function fieldState():void{
+				if(this.currentState != 'userComments'){this.currentState='userComments';}
+				else{this.currentState = '';}
+			}
+			
+			private function tellMe(what:String):void{
+			
+			}
+			
+			private function loadCaptions(event:CaptionEvent):void{
+				this.myCaptions = event.captions;
+				//trace(event.captions[0].name);
+			}
+			
+			private function movieSelected(event:MovieSelectedEvent):void{
+				this.currentMovieTitle = event.movieInfo.movieName;
+				commentpanel.triggerUpdates(event.movieInfo.movieID);
+				captions.update();
+			}
+		]]>
+	</mx:Script>
+	<mx:Style source="styles/styles.css" />
+	<mx:Model id="movieInventory" source="assets/movies.xml" />
+	<vid:CaptionLoader 
+		id="captions" 
+		captionSource="http://localhost:8080/dec4.xml" 
+		captionsLoaded="loadCaptions(event)"  
+	/>
+	<mx:ApplicationControlBar width="100%" dock="true" x="-1" y="-1">
+		<mx:Spacer width="100%" />
+		<mx:Label text="search" />
+		<mx:TextInput id="search" />
+		<mx:Button label='submit' />
+	</mx:ApplicationControlBar>
+	<mx:Panel title ="i711.tv" y="19" left="150" right="150">
+		<mx:HBox width="100%" height="100%" id="hbox1" x="0" y="0">
+			<tv:VideoPlayer  
+				id="vidFeed" 
+				play="tellMe('play')" 
+				pause="mx.controls.Alert.show(String(event.myVideo.playheadTime))" 
+				stop="mx.controls.Alert.show(String(event.myVideo.playheadTime))" 
+				minHeight="200" minWidth="200" 
+				loaderMovie="rtmp://vcv52e58gh.rtmphost.com/testme/spinner00.flv"
+				movieSelected="movieSelected(event)"
+				myCuePoints = "{myCaptions}"
+				captionAutoOn="false"
+			/>	
+			<vid:PickAVideo  height="{vidFeed.height}" width="100%" requestURL="http://localhost/movies.xml" />
+		</mx:HBox>
+		<d:UserOptions width="100%" height="100%" id="commentpanel" x="327" y="0" currentTitle="{currentMovieTitle}"/>
+		<mx:Button label="switch states" click="fieldState()" bottom="1" left="150" right="150"/>
+	</mx:Panel>
+	
+</mx:Application>

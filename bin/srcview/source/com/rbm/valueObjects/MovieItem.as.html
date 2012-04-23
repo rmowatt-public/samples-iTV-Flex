@@ -1,0 +1,36 @@
+<!-- saved from url=(0014)about:internet -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>MovieItem.as</title>
+<link rel="stylesheet" type="text/css" href="../../../../SourceStyles.css"/>
+</head>
+
+<body><pre><span class="asPackage">package</span> com.rbm.valueObjects
+<span class="asBracket">{</span>
+    <span class="asBracket">[</span><span class="asMetadata">Bindable</span><span class="asBracket">]</span>
+    <span class="asReserved">public</span> <span class="asClass">class</span> MovieItem
+    <span class="asBracket">{</span>
+        <span class="asReserved">public</span> <span class="asVar">var</span> movieID<span class="asOperator">:</span>Number;
+        <span class="asReserved">public</span> <span class="asVar">var</span> movieName<span class="asOperator">:</span>String;
+        <span class="asReserved">public</span> <span class="asVar">var</span> moviePath<span class="asOperator">:</span>String;
+        <span class="asReserved">public</span> <span class="asVar">var</span> movieDescription<span class="asOperator">:</span>String;
+        <span class="asReserved">public</span> <span class="asVar">var</span> totalPlays<span class="asOperator">:</span>Number;
+        <span class="asReserved">public</span> <span class="asVar">var</span> teaserImage<span class="asOperator">:</span>String;
+        
+        <span class="asReserved">public</span> <span class="asFunction">function</span> MovieItem<span class="asBracket">(</span>_movieID<span class="asOperator">:</span>Number , _movieName<span class="asOperator">:</span>String, _moviePath<span class="asOperator">:</span>String , _movieDescription<span class="asOperator">:</span>String , _totalPlays<span class="asOperator">:</span>Number, _teaserImage<span class="asOperator">:</span>String<span class="asBracket">){</span>
+                movieID <span class="asOperator">=</span> _movieID;
+                movieName <span class="asOperator">=</span> _movieName;
+                moviePath <span class="asOperator">=</span> _moviePath;
+                movieDescription <span class="asOperator">=</span> _movieDescription;
+                totalPlays <span class="asOperator">=</span> _totalPlays;
+                teaserImage <span class="asOperator">=</span> _teaserImage;
+        <span class="asBracket">}</span>
+        
+        <span class="asReserved">public</span> <span class="asFunction">function</span> toString<span class="asBracket">()</span><span class="asOperator">:</span>String<span class="asBracket">{</span>
+            <span class="asReserved">return</span> <span class="asString">&quot;[MovieItem] &quot;</span><span class="asOperator">+</span><span class="asReserved">this</span>.movieName;
+        <span class="asBracket">}</span>
+    <span class="asBracket">}</span>
+<span class="asBracket">}</span></pre></body>
+</html>
